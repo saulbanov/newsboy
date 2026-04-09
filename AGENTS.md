@@ -29,7 +29,7 @@ Do NOT recap full history. Do NOT redesign things that are working. Do NOT skip 
 This is the loop. Not: design exhaustively, then build. Not: build, then test with synthetic examples. Real material, real friction, real fixes.
 
 Current test case: the $950M oil ceasefire bet story.
-Current stage: cause-effect-map → hypothesis-formation → theme-statement → pitch-gate.
+Current stage: cause-effect-map → theme-statement → hypothesis-formation → pitch-gate.
 
 Move one stage at a time. Complete each stage fully before advancing. When something breaks — a skill produces bad output, a handoff drops information, a gate doesn't catch what it should — fix the skill before moving on. Log what broke and how it was fixed.
 
@@ -147,18 +147,28 @@ Anything that surfaces entities, concepts, or recurring patterns gets written to
 
 ## Skills inventory
 
+All skills live in `wiki/skills/` (relative to this project root). Full paths below.
+
 **Blundell suite** (built, do not rewrite):
-`/Users/saulelbein/Documents/Claude Code/blundell-skills/`
-- blundell-cause-effect-map, blundell-theme-statement, blundell-six-part-guide
-- blundell-indexing, blundell-narrative-lines, blundell-high-interest-elements
-- blundell-leads, blundell-profile, blundell-story-analyst
+- `wiki/skills/blundell-cause-effect-map/` — SKILL.md + references/
+- `wiki/skills/blundell-theme-statement/` — SKILL.md + references/
+- `wiki/skills/blundell-six-part-guide/` — SKILL.md + references/
+- `wiki/skills/blundell-indexing/` — SKILL.md + references/
+- `wiki/skills/blundell-narrative-lines/` — SKILL.md + references/
+- `wiki/skills/blundell-high-interest-elements/` — SKILL.md + references/
+- `wiki/skills/blundell-leads/` — SKILL.md + references/
+- `wiki/skills/blundell-profile/` — SKILL.md + references/
+- `wiki/skills/blundell-story-analyst/` — SKILL.md + references/
 
 **Four-draft** (built):
-`/Users/saulelbein/Documents/Claude Code/master-journo-skills/`
+- `wiki/skills/four-draft/` — SKILL.md + references/
 
 **Pipeline skills** (built, test and refine):
-`wiki/skills/`
-- pitch-gate.md, editorial-review.md, fact-check.md, distribution-prep.md
+- `wiki/skills/hypothesis-formation.md`
+- `wiki/skills/pitch-gate.md`
+- `wiki/skills/editorial-review.md`
+- `wiki/skills/fact-check.md`
+- `wiki/skills/distribution-prep.md`
 
 **Research tools** (active):
 - Perplexity API (key in session)
