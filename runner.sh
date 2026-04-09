@@ -257,7 +257,7 @@ echo ""
 PROMPT=$(build_prompt)
 
 # Run Claude from /tmp so it does not pick up project CLAUDE.md — information isolation
-if (cd /tmp && echo "$PROMPT" | claude --print --allowedTools "" --dangerously-skip-permissions) > "$TMP_OUTPUT" 2>&1; then
+if (cd /tmp && echo "$PROMPT" | claude --print --allowedTools "") > "$TMP_OUTPUT" 2>&1; then
   log_event "CLAUDE_OK" "output: $(wc -c < "$TMP_OUTPUT") bytes"
 else
   CLAUDE_EXIT=$?
