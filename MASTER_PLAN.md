@@ -158,6 +158,8 @@ Add editorial identity to relevant skills. Bake in voice, style criteria, stakeh
 
 Build the intake layer: ingestion, discourse analysis, gap detection, relevance scoring, question package formulation.
 
+**News Sifter automation (near-term):** Automate the daily News Sifter → Newsbot handoff via a local cron job that fetches the daily report and pipes it into a Claude Code session. Claude runs blundell-story-analyst, writes gap analysis and question packages to the wiki. No manual URL-dropping. WorkFlowy project: "Automate pushing NewsSifter to Newsbot."
+
 **Done when:** Scanner is generating question packages that journalists find useful. At least one story has moved from scanner output through the full pipeline to publication.
 
 ---
@@ -219,9 +221,10 @@ Each stage hands off a structured artifact. The artifact always includes: curren
 
 | Stage | Skill | What it sees | Output | Human gate |
 |-------|-------|-------------|--------|------------|
-| **0a. Scoping** | blundell-cause-effect-map | Question only | Scoped cause-effect map | Reporter confirms scope |
-| **0b. Theme** | blundell-theme-statement | Question + scope map | Theme statement | Reporter confirms theme holds |
-| **0c. Pitch** | [to be built] | Theme statement + initial evidence | Commission / kill / needs more | Editor decides |
+| **0a. Scoping** | blundell-cause-effect-map | Question only | Candidate chains, ranked | Reporter confirms chains |
+| **0b. Hypothesis** | wiki/skills/hypothesis-formation.md | Chains from 0a | Each chain → IF/THEN hypothesis, Tier 1 or 2, confidence level | Reporter confirms hypotheses |
+| **0c. Theme** | blundell-theme-statement | Formed hypotheses | Theme statement | Reporter confirms theme holds |
+| **0d. Pitch** | wiki/skills/pitch-gate.md | Theme statement + initial evidence + testability tier | Commission / kill / needs more | Editor decides |
 | **1a. Research planning** | blundell-six-part-guide | Theme statement | Reporting plan (six categories) | Reporter confirms gaps |
 | **1b. Note organization** | blundell-indexing | Raw notes + research artifact | Indexed material by category | Reporter confirms index is complete |
 | **2a. Structure** | blundell-narrative-lines | Indexed material | Narrative line choice + section order | Reporter approves structure |

@@ -17,6 +17,7 @@ It is not here to help develop the story. The Blundell suite does that. This ski
 ## What it sees
 
 - The theme statement (from blundell-theme-statement)
+- The hypothesis with its testability tier (Tier 1 or Tier 2) and confidence level (from hypothesis-formation)
 - Initial evidence: sources, documents, tips, data — whatever prompted the question
 - Nothing else. No research artifact. No notes. No enthusiasm from the reporter.
 
@@ -31,6 +32,12 @@ Test: *What is the minimum evidence required to publish this? Does it currently 
 The story may be real but framed in a way that can never converge — too broad, too abstract, or requiring proof of something unprovable. Eats reporting time without producing a publishable story.
 
 Test: *Can the theme statement's central claim be documented with specific, obtainable evidence? Or does proving it require proving everything at once?*
+
+## Testability tier factors into the commission decision
+
+**Tier 1 hypothesis:** Test it before commissioning. The machine can check whether the evidence exists. A Tier 1 hypothesis that survives a machine test is a much stronger commission than one that hasn't been checked. If it fails the machine test, kill or hold before spending reporter time.
+
+**Tier 2 hypothesis:** Requires committing reporter time on faith. The commission decision should be proportional to confidence level — high confidence Tier 2 hypotheses can be commissioned; medium/low confidence Tier 2 hypotheses should have a Tier 1 pre-check or be held until supporting signal emerges.
 
 ## Adversarial posture
 

@@ -39,8 +39,9 @@ Move one stage at a time. Complete each stage fully before advancing. When somet
 
 ```
 0a. cause-effect-map        blundell-cause-effect-map
-0b. theme-statement         blundell-theme-statement     ← ALWAYS runs, no exceptions
-0c. pitch-gate              wiki/skills/pitch-gate.md
+0b. hypothesis-formation    wiki/skills/hypothesis-formation.md
+0c. theme-statement         blundell-theme-statement     ← ALWAYS runs, no exceptions
+0d. pitch-gate              wiki/skills/pitch-gate.md
 
 1a. research-planning       blundell-six-part-guide
 1b. note-organization       blundell-indexing
