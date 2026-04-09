@@ -48,12 +48,38 @@ fi
 #   OUTPUT_FILE — where to write approved output
 #   STAGE_LABEL — human-readable name
 
+# ── Prerequisite check ────────────────────────────────────────────────────
+# Each stage declares what must already exist before it can run.
+# Format: "file|stage-that-produces-it"
+# Checked before the subprocess runs. Fails fast with actionable message.
+check_prerequisites() {
+  local -a prereqs=("$@")
+  local failed=0
+  for entry in "${prereqs[@]}"; do
+    local file="${entry%%|*}"
+    local produced_by="${entry##*|}"
+    if [[ ! -f "$file" ]]; then
+      echo "  Missing: $(basename "$file")  (produced by Stage $produced_by)"
+      failed=1
+    fi
+  done
+  if [[ $failed -eq 1 ]]; then
+    echo ""
+    echo "Error: prerequisite(s) not satisfied for $STAGE_LABEL."
+    echo "Complete the stages listed above first, then re-run."
+    exit 1
+  fi
+}
+
 configure_stage() {
   case "$STAGE" in
     0a)
       STAGE_LABEL="Stage 0a — Cause-Effect Map"
       SKILL_PATH="$SKILLS/blundell-cause-effect-map"
       SKILL_IS_DIR=true
+      PREREQS=(
+        "$STORY/question-package.md|manual (question package must be written before pipeline starts)"
+      )
       INPUT_FILES=("$STORY/question-package.md")
       OUTPUT_FILE="$STORY/cause-effect-map.md"
       ;;
@@ -61,6 +87,9 @@ configure_stage() {
       STAGE_LABEL="Stage 0b — Theme Statement"
       SKILL_PATH="$SKILLS/blundell-theme-statement"
       SKILL_IS_DIR=true
+      PREREQS=(
+        "$STORY/cause-effect-map.md|0a"
+      )
       INPUT_FILES=("$STORY/cause-effect-map.md")
       OUTPUT_FILE="$STORY/theme-statement.md"
       ;;
@@ -68,6 +97,10 @@ configure_stage() {
       STAGE_LABEL="Stage 0c — Hypothesis Formation"
       SKILL_PATH="$SKILLS/hypothesis-formation.md"
       SKILL_IS_DIR=false
+      PREREQS=(
+        "$STORY/cause-effect-map.md|0a"
+        "$STORY/theme-statement.md|0b"
+      )
       INPUT_FILES=("$STORY/cause-effect-map.md" "$STORY/theme-statement.md")
       OUTPUT_FILE="$STORY/hypotheses.md"
       ;;
@@ -75,6 +108,10 @@ configure_stage() {
       STAGE_LABEL="Stage 0d — Pitch Gate"
       SKILL_PATH="$SKILLS/pitch-gate.md"
       SKILL_IS_DIR=false
+      PREREQS=(
+        "$STORY/theme-statement.md|0b"
+        "$STORY/hypotheses.md|0c"
+      )
       INPUT_FILES=("$STORY/theme-statement.md" "$STORY/hypotheses.md")
       OUTPUT_FILE="$STORY/pitch-gate-verdict.md"
       ;;
@@ -82,6 +119,11 @@ configure_stage() {
       STAGE_LABEL="Stage 1a — Research Planning"
       SKILL_PATH="$SKILLS/blundell-six-part-guide"
       SKILL_IS_DIR=true
+      PREREQS=(
+        "$STORY/pitch-gate-verdict.md|0d"
+        "$STORY/theme-statement.md|0b"
+        "$STORY/hypotheses.md|0c"
+      )
       INPUT_FILES=("$STORY/theme-statement.md" "$STORY/hypotheses.md")
       OUTPUT_FILE="$STORY/research-plan.md"
       ;;
@@ -89,6 +131,10 @@ configure_stage() {
       STAGE_LABEL="Stage 1b — Note Organization"
       SKILL_PATH="$SKILLS/blundell-indexing"
       SKILL_IS_DIR=true
+      PREREQS=(
+        "$STORY/research-artifact.md|manual (reporter must write research-artifact.md from field reporting)"
+        "$STORY/research-plan.md|1a"
+      )
       INPUT_FILES=("$STORY/research-artifact.md")
       OUTPUT_FILE="$STORY/indexed-notes.md"
       ;;
@@ -96,6 +142,10 @@ configure_stage() {
       STAGE_LABEL="Stage 2a — Structure"
       SKILL_PATH="$SKILLS/blundell-narrative-lines"
       SKILL_IS_DIR=true
+      PREREQS=(
+        "$STORY/indexed-notes.md|1b"
+        "$STORY/theme-statement.md|0b"
+      )
       INPUT_FILES=("$STORY/indexed-notes.md" "$STORY/theme-statement.md")
       OUTPUT_FILE="$STORY/structure-plan.md"
       ;;
@@ -103,10 +153,12 @@ configure_stage() {
       STAGE_LABEL="Stage 3 — Editorial Review"
       SKILL_PATH="$SKILLS/editorial-review.md"
       SKILL_IS_DIR=false
-      # Gets current draft only — no research artifact, no notes
       DRAFT=$(ls "$STORY/drafts/"*.md 2>/dev/null | sort -V | tail -1 || true)
+      PREREQS=(
+        "$STORY/structure-plan.md|2a"
+      )
       if [[ -z "$DRAFT" ]]; then
-        echo "Error: no draft found in $STORY/drafts/"
+        echo "Error: no draft found in $STORY/drafts/ — Stage 2b–2e (drafting) must produce at least one draft first."
         exit 1
       fi
       INPUT_FILES=("$DRAFT")
@@ -116,14 +168,13 @@ configure_stage() {
       STAGE_LABEL="Stage 4 — Fact Check"
       SKILL_PATH="$SKILLS/fact-check.md"
       SKILL_IS_DIR=false
-      # Gets draft + citation sheet ONLY
       DRAFT=$(ls "$STORY/drafts/"*.md 2>/dev/null | sort -V | tail -1 || true)
+      PREREQS=(
+        "$STORY/editorial-notes.md|3"
+        "$STORY/citation-sheet.md|manual (citation sheet must be built alongside drafting)"
+      )
       if [[ -z "$DRAFT" ]]; then
         echo "Error: no draft found in $STORY/drafts/"
-        exit 1
-      fi
-      if [[ ! -f "$STORY/citation-sheet.md" ]]; then
-        echo "Error: citation-sheet.md not found — build it alongside the draft"
         exit 1
       fi
       INPUT_FILES=("$DRAFT" "$STORY/citation-sheet.md")
@@ -133,10 +184,12 @@ configure_stage() {
       STAGE_LABEL="Stage 5 — Distribution Prep"
       SKILL_PATH="$SKILLS/distribution-prep.md"
       SKILL_IS_DIR=false
-      # Gets cleared draft only
       DRAFT=$(ls "$STORY/drafts/"*.md 2>/dev/null | sort -V | tail -1 || true)
+      PREREQS=(
+        "$STORY/fact-check-verdict.md|4"
+      )
       if [[ -z "$DRAFT" ]]; then
-        echo "Error: no cleared draft found in $STORY/drafts/"
+        echo "Error: no draft found in $STORY/drafts/"
         exit 1
       fi
       INPUT_FILES=("$DRAFT")
@@ -270,14 +323,8 @@ echo "  Story:  $SLUG"
 echo "════════════════════════════════════════════════════════════"
 echo ""
 
-# Verify all input files exist before running
-for f in "${INPUT_FILES[@]}"; do
-  if [[ ! -f "$f" ]]; then
-    echo "Error: required input file not found: $f"
-    echo "Complete the previous stage first."
-    exit 1
-  fi
-done
+# Verify prerequisites are satisfied before running
+check_prerequisites "${PREREQS[@]}"
 
 log_event "STAGE_START" "input files: ${INPUT_FILES[*]}"
 
