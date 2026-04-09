@@ -1,94 +1,88 @@
-## Cause-Effect Map — Oil Ceasefire Bet
+## The Map
+
+**Central development**: Traders have repeatedly positioned ahead of Trump foreign policy announcements since January 2025, profiting as markets moved on what appears to be advance knowledge of non-public White House decisions.
 
 ---
 
-### Central Development
+**Branch 1 — Market mechanics**
 
-An unidentified trader sells 8,600 lots of Brent and WTI crude futures at 19:45 GMT on April 7, 2026 — 2.5 hours before Trump announces a two-week ceasefire with Iran.
+Central dev → Uninformed counterparties take the losing side of trades
+→ Capital transfers from uninformed to informed traders (hundreds of millions documented)
+→ Institutional investors (pension funds, passive funds) absorb losses without identifying the source
+→ Erosion of confidence in fair price discovery
 
----
-
-### The Map
-
-```
-[CENTRAL DEVELOPMENT]
-Unidentified trader shorts ~$950M in oil futures at 19:45 GMT, April 7
-          │
-          ├─→ Oil falls ~15% on April 8
-          │         │
-          │         └─→ Trader realizes large gain on short position
-          │                   │
-          │                   └─→ Proceeds move through broker(s) to beneficiary
-          │                             [identity unknown]
-          │
-          ├─→ Reuters/LSEG flags timing and volume as "entirely atypical"
-          │         │
-          │         └─→ Financial press picks up anomaly
-          │                   │
-          │                   └─→ Torres calls for SEC/CFTC investigation, April 8
-          │                             │
-          │                             ├─→ Agencies receive formal complaint
-          │                             │
-          │                             └─→ Agencies do not respond publicly [as of map date]
-          │
-          ├─→ Pattern match to March 22 trade detected
-          │         [~$2.28B short, executed 15 min before Trump delays Iran energy strikes]
-          │         │
-          │         └─→ Two trades share structural signature
-          │                   │
-          │                   ├─→ Trades share common originator
-          │                   │
-          │                   └─→ Trades draw on common information source
-          │                             │
-          │                             └─→ Source is inside diplomatic/policy channel
-          │                                       │
-          │                                       ├─→ Source is Trump administration official
-          │                                       │
-          │                                       └─→ Source is foreign government counterparty
-          │
-          └─→ Polymarket parallel: 4 wallets profit ~$600K on ceasefire prediction
-                    │
-                    └─→ Wallets connected to same information network as futures trader
-```
-
-**Constituencies touched:**
-- The unknown trader(s)
-- London broker(s) executing the block sale
-- NYMEX and ICE (exchanges with surveillance records)
-- CFTC and SEC (regulatory jurisdiction)
-- Rep. Torres and Congress (political/oversight)
-- Retail and institutional oil market participants on the losing side of the move
-- Trump administration (implicated by timing; deny or confirm)
-- Diplomatic intermediaries in ceasefire negotiations (US, Iran, third-party states)
-- Polymarket wallet holders (separate but overlapping information question)
-- Market integrity watchdogs and the broader public that relies on fair markets
+Central dev → Pre-announcement positioning creates a detectable signal in trading data
+→ CME / ICE surveillance systems should flag anomalous volume and options activity before announcements
+→ Exchanges make (or withhold) referrals to CFTC
+→ CFTC opens investigation — or does not
+→ Congressional oversight triggered or not triggered
 
 ---
 
-### The Fence
+**Branch 2 — Information chain**
 
-**This story covers:** The April 7 trade and the March 22 trade as a documented pattern; what is publicly verifiable about the timing anomaly; the regulatory non-response to Torres's complaint; and the public record of who could plausibly have known about the ceasefire before 22:30 GMT — drawn from the diplomatic timeline that is already on the record.
-
-**This story does not cover:**
-
-- *Full reconstruction of ceasefire negotiations.* Tracing who knew what inside the diplomatic channel requires sources this reporter does not have on first contact. That is a parallel investigative track — diplomatic beat, separate story.
-- *Polymarket wallet forensics.* Blockchain tracing of the 4 wallets is a distinct methodology and a distinct story. It can run parallel but should not be merged here.
-- *Broader pattern across Trump-era policy announcements.* Determining whether these two trades are part of a systemic pattern across other Trump policy moves requires months of trade data analysis. Name it as a future story; do not try to prove it here.
-
-**Why this fence:** The fenced portion is the most reportable section of the map. The trade data is confirmed by Reuters/LSEG. The regulatory complaint is on the record. The diplomatic timeline has partial public documentation. The broker and CFTC records are accessible by FOIA and regulatory beat sourcing. The fence is drawn at the boundary of what can be reported without sources this reporter does not yet have.
+Central dev → Someone with advance White House knowledge is source of trades or tips
+→ Information moves through a chain: White House access point → intermediary → trader (or direct)
+→ Chain is identifiable through access logs, phone records, financial relationships
+→ White House personnel exposure
+→ Criminal referral / DOJ investigation
 
 ---
 
-### Remote Elements to Watch
+**Branch 3 — Pattern breadth**
 
-| Element | Label | Rationale |
+Central dev → Pattern extends beyond oil futures to equities, currencies, other commodities
+→ Pattern extends across policy domains beyond Iran (tariffs, sanctions, military action)
+→ Systematic signal across many announcements becomes statistically significant
+→ Copycat traders attempt to follow the pattern (amplifying moves, degrading signal isolation)
+
+---
+
+**Branch 4 — Political / institutional response**
+
+Central dev → Congressional calls for investigation (Murphy already on record)
+→ Senate / House oversight committees open formal inquiries
+→ Subpoenas for trading records
+→ White House resistance / executive privilege claims
+
+---
+
+## The Fence
+
+**In scope**: The documented pattern of trades preceding Trump foreign policy announcements — establishing how many announcements are involved, which asset classes, and the aggregate scale of positioning — combined with the regulatory surveillance apparatus: whether CME, ICE, and CFTC flagged the trades, and if not, why not.
+
+**Why this portion**: It is the most reportable segment of the chain right now. The trades are documented with timestamps. The exchanges have surveillance systems with defined reporting obligations. The CFTC's public docket and press record can be checked against those obligations. This portion can be reported without access to the White House and without identifying a leak source — it stands alone as a story about market integrity and regulatory failure. It also has the most certain evidentiary trail.
+
+**Out of scope — explicitly**: Identifying the White House leak source (Branch 2, steps 3–5). That chain requires access the reporting does not yet have and is speculative until an evidentiary thread emerges. It is a second story, probably a bigger one, but it cannot be the first one.
+
+Also out of scope: copycat-trader dynamics (Branch 3, step 4); DOJ/FBI criminal referral (Branch 2, final step); Congressional subpoenas (Branch 4, steps 3–4). All are downstream of reporting that hasn't happened yet.
+
+---
+
+## Remote Elements to Watch
+
+| Element | Label | Note |
 |---|---|---|
-| CFTC/SEC open a formal internal review in response to Torres complaint | **near-certain** | Formal congressional referral triggers routine intake; agencies rarely ignore on-the-record calls from members. Has not materialized publicly yet — may be quiet, not absent. |
-| April 7 and March 22 trades share a common originator | **probable** | Structural signature match is documented; same timing logic, same instrument class, same geopolitical trigger category. One disruptor: copycat actor who read the March 22 trade and replicated it. Needs a check call to a derivatives desk before committing to a reporting trip on this assumption. |
-| Common information source is inside Trump administration | **speculative** | Logical but multi-step: trade → advance knowledge → policy access → administration source. Each link introduces disruptors (foreign intelligence, leaky intermediary, sophisticated inference from public signals). Do not chase without early evidence. |
-| Polymarket wallets connected to the futures trader or same information network | **speculative** | Separate market, separate mechanism, separate jurisdictions. The parallel is suggestive, not established. Flag for a future story or blockchain forensics specialist. |
-| Formal enforcement action (charges, subpoenas) | **speculative** | Depends on investigation opening, finding probable cause, and agency political will — each an independent variable. Monitor; do not build the story around its occurrence. |
+| CME / ICE surveillance flagged anomalous positioning | Near-certain | Exchanges have mandatory surveillance systems; the data exists. Whether they acted on it is a call or FOIA away. |
+| CFTC received exchange referrals on at least one of the documented trades | Probable | Two trades this large, this well-timed, almost certainly generated alerts. Whether CFTC acted is the question. |
+| Pattern extends to equities and currencies beyond oil | Probable | WSJ has documented broader pattern; asset class extension is a reporting trip, not a speculation. |
+| Pattern covers policy domains beyond Iran (tariffs, sanctions) | Probable | Enough time has passed since January 2025 for second-order effects across other announcement categories to exist. |
+| Congressional oversight committees open formal inquiries | Probable | Murphy is on record; the question is whether committee chairs take it up. Depends heavily on partisan dynamics. |
+| White House leak source identified | Speculative | Multiple steps from central development; no evidentiary thread in hand; access needed not yet established. |
+| DOJ / FBI criminal referral | Speculative | Contingent on CFTC action, which has not been confirmed. Too many prior steps unresolved. |
+| Foreign nationals or foreign state actors as beneficiaries | Speculative | Possible but no evidence; multiple steps and assumptions required before this earns a reporting trip. |
 
 ---
 
-*The fenced portion of this map is ready to hand to `blundell-theme-statement`: central development = the trade and its pattern; primary effect = a documented timing anomaly with no identified actor and no regulatory response; countermove = Torres's call for investigation, unanswered.*
+## QA Summary
+
+| Check | Result | Note |
+|---|---|---|
+| Development sentence is a single plain verb sentence | PASS | Provided sentence has subject, verb, and implied consequence. Slightly long but functional. |
+| Map branches (not a single chain) | PASS | Four distinct branches: market mechanics, information chain, pattern breadth, political response. |
+| Fence is explicit — states what is in and what is out | PASS | In-scope and out-of-scope both named explicitly. |
+| Fence justification given | PASS | Justification tied to reportability and evidentiary availability. |
+| All remote elements labeled near-certain / probable / speculative | PASS | Eight elements labeled across the table. |
+| Constituencies named beyond the obvious | FLAG | CME/ICE surveillance staff, exchange compliance officers, and counterparty institutions (who specifically lost money on these trades) are not named as constituencies. Pension fund managers and institutional allocators on the losing side are a significant latent constituency who don't know they were harmed — they deserve a row on the map. |
+
+**Before proceeding:** The fence currently places the regulatory surveillance gap (CFTC / CME / ICE non-response) inside the fence alongside the pattern breadth — is that right, or is the regulatory failure story large enough to be its own fenced story, with pattern breadth as the companion piece? Clarify which of the two is the *primary* development before building the theme statement.

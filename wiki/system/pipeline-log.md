@@ -13,3 +13,15 @@
 | 2026-04-09 13:08:50 | 0d | oil-ceasefire-bet | GATE_APPROVED | no note |
 | 2026-04-09 13:11:45 | 0a | oil-ceasefire-bet | STAGE_START | input files: /Users/saulelbein/Documents/Claude Code/newsbot-master-plan/wiki/stories/oil-ceasefire-bet/question-package.md |
 | 2026-04-09 13:12:51 | 0a | oil-ceasefire-bet | CLAUDE_OK | output:     6465 bytes |
+| 2026-04-09 15:38:58 | intake | oil-ceasefire-bet | STAGE_START | input files: /Users/saulelbein/Documents/Claude Code/newsbot-master-plan/wiki/stories/oil-ceasefire-bet/source-article.md |
+| 2026-04-09 15:40:17 | intake | oil-ceasefire-bet | CLAUDE_OK | output:     7713 bytes |
+| 2026-04-09 15:47:57 | intake | oil-ceasefire-bet | GATE_APPROVED | proceeding with Story 2 angle — full pattern of Trump-announcement-adjacent trades since Jan 2025 |
+| 2026-04-09 15:48:13 | 0a | oil-ceasefire-bet | STAGE_START | input files: /Users/saulelbein/Documents/Claude Code/newsbot-master-plan/wiki/stories/oil-ceasefire-bet/question-package.md |
+| 2026-04-09 15:49:25 | 0a | oil-ceasefire-bet | CLAUDE_OK | output:     6404 bytes |
+| 2026-04-09 15:50:01 | 0a | oil-ceasefire-bet | GATE_APPROVED | pattern breadth is primary development; regulatory non-response is countermove. Constituencies flag noted. |
+| 2026-04-09 15:50:22 | 0b | oil-ceasefire-bet | STAGE_START | input files: /Users/saulelbein/Documents/Claude Code/newsbot-master-plan/wiki/stories/oil-ceasefire-bet/cause-effect-map.md |
+| 2026-04-09 15:51:31 | 0b | oil-ceasefire-bet | CLAUDE_OK | output:     5226 bytes |
+| 2026-04-09 15:51:49 | 0b | oil-ceasefire-bet | GATE_APPROVED | theme statement solid; dealbreakers are reporting targets not kill reasons; proceed to hypotheses |
+| 2026-04-09 15:51:55 | 0c | oil-ceasefire-bet | STAGE_START | input files: /Users/saulelbein/Documents/Claude Code/newsbot-master-plan/wiki/stories/oil-ceasefire-bet/cause-effect-map.md /Users/saulelbein/Documents/Claude Code/newsbot-master-plan/wiki/stories/oil-ceasefire-bet/theme-statement.md |
+| 2026-04-09 15:54:11 | 0c | oil-ceasefire-bet | CLAUDE_OK | output:    14797 bytes |
+| 2026-04-09 15:56:10 | 0c | oil-ceasefire-bet | GATE_APPROVED | hypotheses clear; H3 gates regulatory argument; proceed to pitch |

@@ -20,7 +20,7 @@ MODE="${3:-interactive}"   # interactive (default) | --run-only | --log-approved
 
 if [[ -z "$STAGE" || -z "$SLUG" ]]; then
   echo "Usage: ./runner.sh <stage> <story-slug> [--run-only | --log-approved <note> | --log-rejected <reason>]"
-  echo "Stages: 0a 0b 0c 0d 1a 1b 2a 3 4 5"
+  echo "Stages: intake 0a 0b 0c 0d 1a 1b 2a 3 4 5"
   exit 1
 fi
 
@@ -73,6 +73,16 @@ check_prerequisites() {
 
 configure_stage() {
   case "$STAGE" in
+    intake)
+      STAGE_LABEL="Intake — Story Analysis"
+      SKILL_PATH="$SKILLS/blundell-story-analyst"
+      SKILL_IS_DIR=true
+      PREREQS=(
+        "$STORY/source-article.md|manual (paste article text into wiki/stories/<slug>/source-article.md)"
+      )
+      INPUT_FILES=("$STORY/source-article.md")
+      OUTPUT_FILE="$STORY/intake-analysis.md"
+      ;;
     0a)
       STAGE_LABEL="Stage 0a — Cause-Effect Map"
       SKILL_PATH="$SKILLS/blundell-cause-effect-map"
@@ -196,7 +206,7 @@ configure_stage() {
       OUTPUT_FILE="$STORY/distribution-package.md"
       ;;
     *)
-      echo "Error: unknown stage '$STAGE'. Valid stages: 0a 0b 0c 0d 1a 1b 2a 3 4 5"
+      echo "Error: unknown stage '$STAGE'. Valid stages: intake 0a 0b 0c 0d 1a 1b 2a 3 4 5"
       exit 1
       ;;
   esac

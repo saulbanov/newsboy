@@ -257,6 +257,7 @@ As of 2026-04-09:
 
 **Infrastructure (built):**
 - `runner.sh` — stage execution with subprocess isolation (`cd /tmp`), system event log, and conversation-native gate support (`--run-only` / `--log-approved` / `--log-rejected`)
+- `runner.sh` now includes `intake` stage (runs blundell-story-analyst on `source-article.md` → `intake-analysis.md`) as the pipeline entry point when starting from an article
 - `wiki/system/pipeline-log.md` — append-only event log (timestamp, stage, slug, event, detail)
 - `CLAUDE.md` — auto-loaded on session startup; instructs reading AGENTS.md + MASTER_PLAN.md
 - All pipeline skills built and QA summaries added to every skill
@@ -266,9 +267,14 @@ As of 2026-04-09:
 - four-draft
 - hypothesis-formation, pitch-gate, editorial-review, fact-check, distribution-prep
 
+**Entry points (two modes):**
+- Mode 1: Human writes `question-package.md` directly → start at Stage 0a
+- Mode 2: Human pastes article text → `source-article.md` → `intake` stage → pick angle → `question-package.md` → Stage 0a
+
 **Active test run:**
-- Story: Corpus Christi water crisis (`wiki/stories/corpus-christi-water/`)
-- Status: `question-package.md` exists. No gated stage output yet — starting at Stage 0a.
+- Story: Oil/Trump trades pattern (`wiki/stories/oil-ceasefire-bet/`)
+- Status: intake, 0a, 0b, 0c complete and approved. At pitch gate (0d) — awaiting commission decision. Tier 1 machine research (H1, H2, H3, H5 public check, H7) not yet run.
+- Open question: order of operations between intake (story-analyst) and 0a/0b may be logically redundant — flagged for review after test run.
 
 **Gate model:**
 - Reporter model: 0a/0b/0c run as a unit; pitch surfaces to editor at 0d; draft and clearance are the other two editorial moments.
