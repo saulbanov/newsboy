@@ -296,6 +296,30 @@ The first story through the pipeline will answer most of these by revealing how 
 
 ---
 
+## Service Map
+
+Which service executes each pipeline role:
+
+| Stage | Service(s) |
+|-------|-----------|
+| cause-effect-map | Claude |
+| theme-statement | Claude |
+| pitch-gate | Claude |
+| research-planning | Claude |
+| note-organization | Claude |
+| drafting (×3–4) + citation tracking | Claude |
+| editorial-review (cold) | Claude — new context, no upstream |
+| fact-check | Claude + Perplexity + xai-grok |
+| distribution-prep | Claude |
+| Scanner intake | News Sifter |
+| Scanner gap analysis | Claude (blundell-story-analyst) |
+| Breaking / X research | xai-grok |
+| Web research | Perplexity |
+
+**Design principle:** The fact-check is the only stage requiring multiple services by design. Claude cannot verify its own claims — Perplexity and xai-grok verify independently against live sources.
+
+---
+
 ## Source Documents
 
 This master plan synthesizes and supersedes:
