@@ -221,10 +221,10 @@ Each stage hands off a structured artifact. The artifact always includes: curren
 
 | Stage | Skill | What it sees | Output | Human gate |
 |-------|-------|-------------|--------|------------|
-| **0a. Scoping** | blundell-cause-effect-map | Question only | Candidate chains, ranked | Reporter confirms chains |
-| **0b. Hypothesis** | wiki/skills/hypothesis-formation.md | Chains from 0a | Each chain → IF/THEN hypothesis, Tier 1 or 2, confidence level | Reporter confirms hypotheses |
-| **0c. Theme** | blundell-theme-statement | Formed hypotheses | Theme statement | Reporter confirms theme holds |
-| **0d. Pitch** | wiki/skills/pitch-gate.md | Theme statement + initial evidence + testability tier | Commission / kill / needs more | Editor decides |
+| **0a. Cause-effect map** | blundell-cause-effect-map | Central development sentence only | Map + fence + remote elements | Reporter confirms fence |
+| **0b. Theme statement** | blundell-theme-statement | Fenced portion of 0a | Theme statement (development + consequence + countermove) | Reporter confirms theme holds |
+| **0c. Hypothesis formation** | wiki/skills/hypothesis-formation.md | Theme statement + chains | IF/THEN hypotheses, Tier 1/2, confidence levels | Reporter confirms hypotheses |
+| **0d. Pitch** | wiki/skills/pitch-gate.md | Theme statement + hypotheses with testability tiers | Commission / kill / needs more | Editor decides |
 | **1a. Research planning** | blundell-six-part-guide | Theme statement | Reporting plan (six categories) | Reporter confirms gaps |
 | **1b. Note organization** | blundell-indexing | Raw notes + research artifact | Indexed material by category | Reporter confirms index is complete |
 | **2a. Structure** | blundell-narrative-lines | Indexed material | Narrative line choice + section order | Reporter approves structure |

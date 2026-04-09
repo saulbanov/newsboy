@@ -63,9 +63,17 @@ Long-term fix: a shell script runner that enforces the above procedurally — ea
 
 ```
 0a. cause-effect-map        blundell-cause-effect-map
-0b. hypothesis-formation    wiki/skills/hypothesis-formation.md
-0c. theme-statement         blundell-theme-statement     ← ALWAYS runs, no exceptions
+    input: central development sentence (one plain verb sentence — not a theme statement)
+    output: map + fence + remote elements
+0b. theme-statement         blundell-theme-statement     ← ALWAYS runs, no exceptions
+    input: fenced portion of cause-effect-map
+    output: theme statement (development + consequence + countermove)
+0c. hypothesis-formation    wiki/skills/hypothesis-formation.md
+    input: theme statement + candidate chains
+    output: IF/THEN hypotheses, Tier 1/2 labeled, confidence levels
 0d. pitch-gate              wiki/skills/pitch-gate.md
+    input: theme statement + hypotheses with testability tiers
+    output: commission / kill / needs more
 
 1a. research-planning       blundell-six-part-guide
 1b. note-organization       blundell-indexing
