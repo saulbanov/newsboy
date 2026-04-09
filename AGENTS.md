@@ -107,8 +107,13 @@ These mean a required input file is missing — the previous stage was not compl
 0c. hypothesis-formation    wiki/skills/hypothesis-formation.md
     input: theme statement + candidate chains
     output: IF/THEN hypotheses, Tier 1/2 labeled, confidence levels
+0c.5 machine-research       [conversation-native — no subprocess]
+    input: Tier 1 hypotheses from 0c
+    output: machine-research.md — findings written to story directory before 0d runs
+    NOTE: this step runs in the conversation (web search, document fetch). Results MUST
+    be written to machine-research.md. Stage 0d will not run without this file.
 0d. pitch-gate              wiki/skills/pitch-gate.md
-    input: theme statement + hypotheses with testability tiers
+    input: theme statement + hypotheses + machine-research.md
     output: commission / kill / needs more
 
 1a. research-planning       blundell-six-part-guide

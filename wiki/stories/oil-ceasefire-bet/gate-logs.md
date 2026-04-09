@@ -16,3 +16,7 @@ Note: theme statement solid; dealbreakers are reporting targets not kill reasons
 Decision: **APPROVED**
 Note: hypotheses clear; H3 gates regulatory argument; proceed to pitch
 
+## 2026-04-09 16:20 — Stage 0d — Pitch Gate
+Decision: **APPROVED**
+Note: COMMISSIONED. Tier 1 machine checks completed in session before pitch gate ran: H1 confirmed (pattern across tariffs, Venezuela, Hegseth), H3 confirmed (CME surveillance designed to catch deviations from normal activity), H5 confirmed (CFTC docket clean, director said 'watching' only). Design gap noted: research results must be captured in a file the pitch gate subprocess can read.
+

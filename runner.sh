@@ -121,8 +121,9 @@ configure_stage() {
       PREREQS=(
         "$STORY/theme-statement.md|0b"
         "$STORY/hypotheses.md|0c"
+        "$STORY/machine-research.md|manual (run Tier 1 machine research and write findings to machine-research.md before pitching)"
       )
-      INPUT_FILES=("$STORY/theme-statement.md" "$STORY/hypotheses.md")
+      INPUT_FILES=("$STORY/theme-statement.md" "$STORY/hypotheses.md" "$STORY/machine-research.md")
       OUTPUT_FILE="$STORY/pitch-gate-verdict.md"
       ;;
     1a)
