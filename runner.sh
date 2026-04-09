@@ -234,8 +234,8 @@ echo ""
 
 PROMPT=$(build_prompt)
 
-# Run Claude with no file tools — content is fully injected into the prompt
-echo "$PROMPT" | claude --print --allowedTools "" > "$TMP_OUTPUT" 2>&1
+# Run Claude from /tmp so it does not pick up project CLAUDE.md — information isolation
+(cd /tmp && echo "$PROMPT" | claude --print --allowedTools "") > "$TMP_OUTPUT" 2>&1
 
 echo ""
 echo "════════════════════════════════════════════════════════════"
