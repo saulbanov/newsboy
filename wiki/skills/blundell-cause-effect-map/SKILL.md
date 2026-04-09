@@ -39,13 +39,31 @@ If they genuinely can't produce a development sentence after a few exchanges, st
 
 ## Output format
 
-Return three things:
+Return four things:
 
 1. **The map** — a chain of developments linked by cause and effect, branching where the logic branches. Keep it tight: events only, no prose explanation.
 2. **The fence** — a clear statement of which portion of the map this story covers, and why that portion was chosen over others.
 3. **Remote elements to watch** — chain elements outside the fence worth monitoring. Label each `near-certain`, `probable`, or `speculative` using the scrutiny tests.
+4. **QA summary** — a brief table of what was checked and what flagged, followed by one specific question the human must answer before proceeding to the theme statement.
 
-Once the fence is drawn, a theme statement can be drafted from the fenced portion using `blundell-theme-statement`.
+Format the QA summary as:
+
+```
+## QA Summary
+
+| Check | Result | Note |
+|-------|--------|------|
+| Development sentence is a single plain verb sentence | PASS / FLAG | |
+| Map branches (not a single chain) | PASS / FLAG | |
+| Fence is explicit — states what is in and what is out | PASS / FLAG | |
+| Fence justification given | PASS / FLAG | |
+| All remote elements labeled near-certain / probable / speculative | PASS / FLAG | |
+| Constituencies named beyond the obvious | PASS / FLAG | |
+
+**Before proceeding:** [One specific question for the human — e.g., "Is the fence in the right place, or should [element] be inside it?"]
+```
+
+FLAG means the check did not pass cleanly and warrants human attention. PASS means it passed. If any check is FLAG, note why in the Note column.
 
 ## Reference map
 

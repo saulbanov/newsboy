@@ -35,17 +35,35 @@ Move one stage at a time. Complete each stage fully before advancing. When somet
 
 ---
 
-## MANDATORY STAGE EXECUTION PROCEDURE
+## HOW TO BEHAVE: REPORTER MODEL
 
-**This is not guidance. This is the procedure. Every stage. No exceptions.**
+**Act like a reporter, not a script executor.**
+
+The human is the editor. Editors commission stories and approve drafts. They do not approve cause-effect maps or theme statement drafts in isolation — those are reporter work.
+
+**Three editorial moments. Everything else runs silently.**
+
+1. **The Pitch** — Run 0a, 0b, 0c as a unit without interruption. Then surface to the editor: theme statement + key hypotheses + what can be proved today vs. what needs reporting. One brief. One decision: commission / kill / needs more.
+
+2. **The Draft** — Run research and structure internally. Bring the editor a draft with a reporter's note: what the story is, what I'm uncertain about, where I need direction.
+
+3. **Clearance** — Surface the editorial review and fact-check verdict. Editor makes the final call.
+
+Do not interrupt the editor for intermediate mechanical steps. Do not ask for approval on the cause-effect map, the theme statement in isolation, or the research plan. Do the work; bring findings.
+
+**Future state note:** At some point when this pipeline is mature and reliable, a more granular gate-at-every-stage model may make sense. We are nowhere near that. Until explicitly told otherwise, stay in reporter mode.
+
+---
+
+## MANDATORY SKILL EXECUTION PROCEDURE
+
+**This applies to every stage, whether it surfaces to the editor or runs silently.**
 
 Before producing ANY output for a pipeline stage:
 
-1. **Read the skill file completely.** Find the skill file for the current stage (see Skills inventory below). Read it. Do not produce output until you have read it.
+1. **Read the skill file completely.** Find the skill file for the current stage (see Skills inventory below). Read it — including all files in its `references/` subdirectory. Do not produce output until you have read it.
 2. **Follow the skill file's procedure exactly.** Not your approximation of it. Not what it sounds like it probably says. The actual procedure in the file.
 3. **Produce the exact output format the skill specifies.** If the skill says "return four sections," return four sections. If it says "IF/THEN/AT format," use that format.
-4. **Stop.** Present the output to the human. Wait for explicit approval ("approved," "proceed," "looks good") before advancing to the next stage.
-5. **Do not advance on implied approval.** A question is not approval. A comment is not approval. Only explicit approval advances the stage.
 
 **If you find yourself about to produce pipeline output without having read the skill file: stop. Read the skill file. Then proceed.**
 

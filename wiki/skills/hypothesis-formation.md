@@ -87,6 +87,25 @@ After forming all hypotheses, return a ranked list:
 
 **Kill (any tier, low confidence + weak evidence path):** Speculation without a clear route to confirmation.
 
+Then return a **QA summary** as the final section:
+
+```
+## QA Summary
+
+| Check | Result | Note |
+|-------|--------|------|
+| Every hypothesis is falsifiable | PASS / FLAG | |
+| No hypothesis restates its conclusion as evidence | PASS / FLAG | |
+| Tier 1 and Tier 2 are correctly assigned (resource decision, not quality) | PASS / FLAG | |
+| Confidence levels reflect the chain, not the evidence availability | PASS / FLAG | |
+| At least one Tier 1 hypothesis exists (machine-testable before pitch) | PASS / FLAG | |
+| Dependency chain is explicit (what blocks what) | PASS / FLAG | |
+
+**Before proceeding:** [One specific question — e.g., "Are the Tier 1 hypotheses strong enough to run before the pitch, or does [hypothesis] need to be reframed first?"]
+```
+
+FLAG any hypothesis that required a judgment call about falsifiability or tier assignment — the human should know where the close calls were.
+
 ## Non-negotiables
 
 - Every hypothesis must be falsifiable. "Someone with inside knowledge placed the trade" is not falsifiable. "The March 22 and April 7 trades share a common clearing account, which would appear in CFTC records" is falsifiable.

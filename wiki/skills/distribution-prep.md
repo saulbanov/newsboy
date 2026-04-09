@@ -67,3 +67,20 @@ Timing suggestions based on story type — breaking news, investigation, feature
 - Stakeholder list is a map, not a decision. The journalist decides who gets contacted.
 - Multimedia briefs are only produced for artifacts flagged during editorial review. Do not invent new artifact ideas here — that was editorial review's job.
 - Distribution sequence is a suggestion, not an instruction. The audience team and editor have final say.
+
+## QA summary (append to every distribution-prep response)
+
+```
+## QA Summary
+
+| Check | Result | Note |
+|-------|--------|------|
+| All five outputs present (headlines, social, stakeholder list, multimedia briefs, distribution sequence) | PASS / FLAG | |
+| Three headline options provided (declarative, question, impact-first) | PASS / FLAG | |
+| Social copy is platform-specific (not one-size copy-pasted) | PASS / FLAG | |
+| No headline or social copy overstates the story | PASS / FLAG | |
+| Stakeholder list framed as map, not decision | PASS / FLAG | |
+| Multimedia briefs only cover editorially-flagged artifacts (none invented here) | PASS / FLAG | |
+
+**Before publishing:** [One specific question — e.g., "Are there stakeholders on this list who need advance notice before publication, and if so, what's the timing?"]
+```

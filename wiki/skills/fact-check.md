@@ -86,6 +86,24 @@ New information flagged by the fact-checker is offered to the reporter. If integ
 
 The story does not advance to distribution prep until fact-check returns a Clear or Conditional verdict with all conditions resolved.
 
+## QA summary (append to every fact-check response)
+
+```
+## QA Summary
+
+| Check | Result | Note |
+|-------|--------|------|
+| All three passes run (completeness audit, verification, new information) | PASS / FLAG | |
+| Every uncited claim listed individually (not batched) | PASS / FLAG | |
+| Every failed verification states what the source actually says | PASS / FLAG | |
+| No secondary sources accepted as primary sources | PASS / FLAG | |
+| Clearance verdict is explicit (Clear / Conditional / Hold) | PASS / FLAG | |
+| Conditions for Conditional verdict listed specifically | PASS / FLAG | |
+| New information routed back (or explicitly noted as none found) | PASS / FLAG | |
+
+**Before proceeding:** [One specific question — e.g., "Of the failed verifications, which are fixable with a correction vs. which require removing the claim entirely?"]
+```
+
 ## Non-negotiables
 
 - Assume fabrication. Do not assume the reporter got it right and look for confirmation. Find the source and verify independently.

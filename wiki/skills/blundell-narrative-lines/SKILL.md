@@ -49,6 +49,22 @@ Return based on recommended line:
 
 For all: note where other lines are embedded if relevant, and flag the primary line clearly.
 
+Then return a **QA summary** as the final section:
+
+```
+## QA Summary
+
+| Check | Result | Note |
+|-------|--------|------|
+| Primary line explicitly named and justified | PASS / FLAG | |
+| Line choice tied directly to the theme statement | PASS / FLAG | |
+| Digression rule acknowledged (digress often, don't digress long) | PASS / FLAG | |
+| History placement addressed (not a standalone block) | PASS / FLAG | |
+| Embedded secondary lines noted if present | PASS / FLAG | |
+
+**Before proceeding:** [One specific question — e.g., "Does the recommended line match how you want the reader to experience this story, or is there a structural reason to try a different approach?"]
+```
+
 ## Reference map
 
 - `references/three-lines.md` — each line with strengths, weaknesses, and when to use

@@ -51,6 +51,22 @@ The most important distinction is between levels 2 and 4. Most reporters know to
 
 **Planning assessment**: Interest-level forecast by story section. Which sections have strong actor potential, which are likely to rely on observers, which will require careful number handling.
 
+Then return a **QA summary** as the final section:
+
+```
+## QA Summary
+
+| Check | Result | Note |
+|-------|--------|------|
+| Actor/observer substitution failure checked (most common failure) | PASS / FLAG | |
+| Number stacks identified and flagged | PASS / FLAG | |
+| Output capped at 5-8 items (not exhaustive line annotation) | PASS / FLAG | |
+| Three most important changes ranked by impact | PASS / FLAG | |
+| Every flag includes a specific substitution suggestion (not just "add actors") | PASS / FLAG | |
+
+**Before proceeding:** [One specific question — e.g., "Of the flagged items, which are you most uncertain about — the ones most likely to need a reporting trip rather than a rewrite?"]
+```
+
 ## Reference map
 
 - `references/hierarchy.md` — the five levels with full Blundell treatment of each

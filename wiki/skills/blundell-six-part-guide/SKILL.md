@@ -48,6 +48,23 @@ Determine mode from context. If the reporter has material, run diagnostic. If th
 
 **Post-reporting**: One paragraph per active category assessing coverage quality, followed by a prioritized gap list (3-5 items, dealbreakers first).
 
+Then return a **QA summary** as the final section:
+
+```
+## QA Summary
+
+| Check | Result | Note |
+|-------|--------|------|
+| Correct mode used (pre-reporting vs. post-reporting) | PASS / FLAG | |
+| Dominant sections (1-2) are named with justification | PASS / FLAG | |
+| Reasons category explicitly addressed (most neglected) | PASS / FLAG | |
+| Countermoves distinguished: action vs. talk | PASS / FLAG | |
+| Impacts include emotional response, not only opinion | PASS / FLAG | |
+| Gap list ranked by consequence (dealbreakers first) | PASS / FLAG | |
+
+**Before proceeding:** [One specific question — e.g., "Are there Reasons or Countermoves the reporting plan isn't reaching for that would materially strengthen this story?"]
+```
+
 ## Reference map
 
 - `references/six-part-questions.md` — all sub-questions verbatim from Blundell for both standard and profile variants

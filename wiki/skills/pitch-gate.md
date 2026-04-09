@@ -53,6 +53,22 @@ This is not hostile — it's protective. A story that fails this gate fails here
 
 **Kill** — theme statement is unprovable as framed, or evidence does not support the central claim. State why, and whether a different angle on the same territory might be commissionable.
 
+Then return a **QA summary** as the final section:
+
+```
+## QA Summary
+
+| Check | Result | Note |
+|-------|--------|------|
+| Both failure modes tested (exciting-unprovable AND improperly-focused) | PASS / FLAG | |
+| Verdict states specifically what reporting must establish (not just "do more reporting") | PASS / FLAG | |
+| "Needs more" verdict names the exact gap and what would close it | PASS / FLAG | |
+| "Kill" verdict states whether a different angle on the same territory is commissionable | PASS / FLAG | |
+| No Tier 1 hypotheses were left untested before a commission verdict | PASS / FLAG | |
+
+**Before proceeding:** [One specific question — e.g., "Do you want to run the Tier 1 machine checks before deciding, or commission on the current evidence base?"]
+```
+
 ## Non-negotiables
 
 - Never commission a story whose central claim rests on a single unverified source.

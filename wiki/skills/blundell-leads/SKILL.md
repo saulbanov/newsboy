@@ -42,6 +42,23 @@ Determine mode:
 
 **Construct**: Two options — one anecdotal, one general — with a brief rationale for each, plus a clear recommendation for which to try first. Let the reporter make the final call, but give them a lean.
 
+Then return a **QA summary** as the final section:
+
+```
+## QA Summary
+
+| Check | Result | Note |
+|-------|--------|------|
+| Lead anchored to theme statement (not contrary to story's direction) | PASS / FLAG | |
+| Lead does not prove, explain, or summarize (Stage One only: tease) | PASS / FLAG | |
+| Fruit-salad failure checked (multiple unrelated details tossed together) | PASS / FLAG | |
+| Anecdotal lead (if used): assessed against all four standards | PASS / FLAG | |
+| If construct mode: both anecdotal and general options provided | PASS / FLAG | |
+| Recommendation given (not just options) | PASS / FLAG | |
+
+**Before proceeding:** [One specific question — e.g., "Does this lead make you want to read the next sentence, or does it explain too much before the reader has asked?"]
+```
+
 ## Reference map
 
 - `references/progressive-involvement.md` — the four stages of reader involvement and what each demands

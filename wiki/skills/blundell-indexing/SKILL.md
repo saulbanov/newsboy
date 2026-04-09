@@ -45,6 +45,22 @@ Ask which the reporter wants before starting: "Do you want me to index your mate
 
 **Teach me the system**: Explanation of the coding system, the worked example from the Indian water rights story, and the three things to do with the finished index.
 
+Then return a **QA summary** as the final section:
+
+```
+## QA Summary
+
+| Check | Result | Note |
+|-------|--------|------|
+| All six categories present or explicitly noted as empty | PASS / FLAG | |
+| Multi-use material logged in multiple categories | PASS / FLAG | |
+| History distributed (not clumped in one block) | PASS / FLAG | |
+| Categories with few/no entries assessed: gap vs. section-doesn't-apply | PASS / FLAG | |
+| Category summary is honest (thin/empty noted, not glossed) | PASS / FLAG | |
+
+**Before proceeding:** [One specific question — e.g., "Does the thin coverage in [category] represent a reporting gap to close before writing, or a deliberate choice to leave that section out?"]
+```
+
 ## Reference map
 
 - `references/coding-system.md` — the shorthand codes with examples

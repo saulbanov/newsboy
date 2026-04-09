@@ -41,12 +41,31 @@ Ask exactly one question if unclear:
 
 ## Output format
 
-Return two things:
+Return four things:
 
 1. **Theme statement** — 2-3 sentences, plainly written, no jargon. Set it apart visually so it reads as a finished artifact.
 2. **Reporting implication** — one or two sentences stating what the theme statement requires the reporter to prove or document, and what it allows them to treat as given.
+3. **Gap list** — always required, not only in analytical mode. What the current material can't yet support that the theme statement claims. Three to five items, ranked by consequence: dealbreakers first, nice-to-haves last.
+4. **QA summary** — a brief table of what was checked and what flagged, followed by one specific question the human must answer before proceeding to hypothesis formation.
 
-If in analytical mode, also return a brief **gap list**: what the current material can't yet support that the theme statement claims. Three to five items, ranked by consequence: dealbreakers first, nice-to-haves last.
+Format the QA summary as:
+
+```
+## QA Summary
+
+| Check | Result | Note |
+|-------|--------|------|
+| Statement contains movement (development + at least one consequence) | PASS / FLAG | |
+| No details — no names, numbers, or specifics in the statement | PASS / FLAG | |
+| Story stage correctly identified (juvenile or mature) | PASS / FLAG | |
+| Central development survives cause-and-effect scrutiny | PASS / FLAG | |
+| Gap list contains at least one item | PASS / FLAG | |
+| Dealbreakers (if any) explicitly labeled | PASS / FLAG | |
+
+**Before proceeding:** [One specific question — e.g., "Does this theme statement describe the story you want to pursue, or does [gap] change the framing?"]
+```
+
+FLAG means the check did not pass cleanly. If any dealbreaker gaps exist, flag them prominently — they must be resolved or acknowledged before hypothesis formation runs.
 
 ## Reference map
 

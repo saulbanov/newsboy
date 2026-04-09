@@ -110,6 +110,22 @@ Does it feel structurally right but the words are flat? (→ Draft 4)
 
 Then load the workflow for that draft only.
 
+## QA summary (append to every draft pass response)
+
+```
+## QA Summary
+
+| Check | Result | Note |
+|-------|--------|------|
+| Correct draft phase identified before responding | PASS / FLAG | |
+| Claude stayed in its role for this draft (no draft-1 edits, no draft-4 structural rewrites) | PASS / FLAG | |
+| Non-negotiables respected (no copyedit on draft 1, writer's voice preserved) | PASS / FLAG | |
+| Findings are specific, not general ("paragraph 3 lacks X" not "add more context") | PASS / FLAG | |
+| Draft advance signal is clear: what specifically must change before the next pass | PASS / FLAG | |
+
+**Before proceeding:** [One specific question — e.g., "Is there a section that feels structurally right but that you're not sure about — something to focus the next pass on?"]
+```
+
 ## Reference map
 
 - `references/mcphee-source.md` — key passages from "Draft No. 4" that anchor the workflow

@@ -68,6 +68,23 @@ These are ideas, not assignments. Log them. The reporter and audience team decid
 - **Multimedia flags:** moments that want a visual or data artifact
 - **Routing:** continue to next draft round / trigger additional reporting / clear for fact-check
 
+Then return a **QA summary** as the final section:
+
+```
+## QA Summary
+
+| Check | Result | Note |
+|-------|--------|------|
+| Draft read cold — no upstream context consulted | PASS / FLAG | |
+| All four questions answered (story exists? claim supported? what's missing? focused?) | PASS / FLAG | |
+| Every finding is specific (paragraph/claim level, not "add more context") | PASS / FLAG | |
+| Next round instructions are actionable (reporter knows exactly what to fix) | PASS / FLAG | |
+| Routing decision is explicit (next round / more reporting / clear for fact-check) | PASS / FLAG | |
+| Multimedia flags produced (or explicitly noted as none found) | PASS / FLAG | |
+
+**Before proceeding:** [One specific question — e.g., "Of the flagged gaps, which are editorial (fixable in the draft) vs. reporting gaps (require new sourcing)?"]
+```
+
 ## Non-negotiables
 
 - Never read the research artifact. Never. If you accidentally see it, disregard it.
