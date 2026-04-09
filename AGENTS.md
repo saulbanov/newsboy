@@ -29,9 +29,33 @@ Do NOT recap full history. Do NOT redesign things that are working. Do NOT skip 
 This is the loop. Not: design exhaustively, then build. Not: build, then test with synthetic examples. Real material, real friction, real fixes.
 
 Current test case: the $950M oil ceasefire bet story.
-Current stage: cause-effect-map → theme-statement → pitch-gate.
+Current stage: cause-effect-map → hypothesis-formation → theme-statement → pitch-gate.
 
 Move one stage at a time. Complete each stage fully before advancing. When something breaks — a skill produces bad output, a handoff drops information, a gate doesn't catch what it should — fix the skill before moving on. Log what broke and how it was fixed.
+
+---
+
+## MANDATORY STAGE EXECUTION PROCEDURE
+
+**This is not guidance. This is the procedure. Every stage. No exceptions.**
+
+Before producing ANY output for a pipeline stage:
+
+1. **Read the skill file completely.** Find the skill file for the current stage (see Skills inventory below). Read it. Do not produce output until you have read it.
+2. **Follow the skill file's procedure exactly.** Not your approximation of it. Not what it sounds like it probably says. The actual procedure in the file.
+3. **Produce the exact output format the skill specifies.** If the skill says "return four sections," return four sections. If it says "IF/THEN/AT format," use that format.
+4. **Stop.** Present the output to the human. Wait for explicit approval ("approved," "proceed," "looks good") before advancing to the next stage.
+5. **Do not advance on implied approval.** A question is not approval. A comment is not approval. Only explicit approval advances the stage.
+
+**If you find yourself about to produce pipeline output without having read the skill file: stop. Read the skill file. Then proceed.**
+
+The entire point of the skill files is to prevent you from pattern-matching to what a stage sounds like and producing plausible-seeming output. That is the failure mode this system is designed to prevent. Do not do it.
+
+---
+
+## RUNNER (to be built)
+
+Long-term fix: a shell script runner that enforces the above procedurally — each stage runs in its own Claude Code session with only the skill file and input artifact as context, cannot see other stages, cannot advance without a human approval file being written. This is Phase 2. Until it exists, the mandatory procedure above is the enforcement mechanism.
 
 ---
 
