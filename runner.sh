@@ -16,9 +16,10 @@ set -euo pipefail
 
 STAGE="${1:-}"
 SLUG="${2:-}"
+MODE="${3:-interactive}"   # interactive (default) | --run-only | --log-approved | --log-rejected
 
 if [[ -z "$STAGE" || -z "$SLUG" ]]; then
-  echo "Usage: ./runner.sh <stage> <story-slug>"
+  echo "Usage: ./runner.sh <stage> <story-slug> [--run-only | --log-approved <note> | --log-rejected <reason>]"
   echo "Stages: 0a 0b 0c 0d 1a 1b 2a 3 4 5"
   exit 1
 fi
@@ -233,6 +234,35 @@ log_gate() {
 # ── Main ───────────────────────────────────────────────────────────────────
 configure_stage
 
+PENDING_DIR="$STORY/.pending"
+PENDING_FILE="$PENDING_DIR/$STAGE.md"
+
+# ── --log-approved / --log-rejected: record gate decision, no subprocess ──
+if [[ "$MODE" == "--log-approved" ]]; then
+  GATE_NOTE="${4:-}"
+  if [[ ! -f "$PENDING_FILE" ]]; then
+    echo "Error: no pending output found at $PENDING_FILE"
+    echo "Run ./runner.sh $STAGE $SLUG --run-only first."
+    exit 1
+  fi
+  cp "$PENDING_FILE" "$OUTPUT_FILE"
+  rm -f "$PENDING_FILE"
+  log_gate "APPROVED" "$GATE_NOTE"
+  log_event "GATE_APPROVED" "${GATE_NOTE:-no note}"
+  echo "✓ Approved. Output written to: $(basename "$OUTPUT_FILE")"
+  exit 0
+fi
+
+if [[ "$MODE" == "--log-rejected" ]]; then
+  REJECT_NOTE="${4:-}"
+  rm -f "$PENDING_FILE"
+  log_gate "REJECTED" "$REJECT_NOTE"
+  log_event "GATE_REJECTED" "${REJECT_NOTE:-no note}"
+  echo "✗ Rejected. Pending output cleared."
+  exit 0
+fi
+
+# ── Run stage (shared by both --run-only and interactive) ──────────────────
 echo ""
 echo "════════════════════════════════════════════════════════════"
 echo "  RUNNER: $STAGE_LABEL"
@@ -277,7 +307,18 @@ echo ""
 echo "════════════════════════════════════════════════════════════"
 echo ""
 
-# Human gate
+# ── --run-only: write to pending, exit without gate prompt ─────────────────
+if [[ "$MODE" == "--run-only" ]]; then
+  mkdir -p "$PENDING_DIR"
+  cp "$TMP_OUTPUT" "$PENDING_FILE"
+  echo "Output staged to: $PENDING_FILE"
+  echo "Gate decision needed. Run:"
+  echo "  ./runner.sh $STAGE $SLUG --log-approved \"<note>\""
+  echo "  ./runner.sh $STAGE $SLUG --log-rejected \"<reason>\""
+  exit 0
+fi
+
+# ── interactive: original gate prompt ─────────────────────────────────────
 while true; do
   read -rp "Gate decision — approve / reject / edit? " DECISION
   case "$DECISION" in

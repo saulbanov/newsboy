@@ -28,8 +28,7 @@ Do NOT recap full history. Do NOT redesign things that are working. Do NOT skip 
 
 This is the loop. Not: design exhaustively, then build. Not: build, then test with synthetic examples. Real material, real friction, real fixes.
 
-Current test case: the $950M oil ceasefire bet story.
-Current stage: cause-effect-map → theme-statement → hypothesis-formation → pitch-gate.
+Current test case: see MASTER_PLAN.md for the active story and stage.
 
 Move one stage at a time. Complete each stage fully before advancing. When something breaks — a skill produces bad output, a handoff drops information, a gate doesn't catch what it should — fix the skill before moving on. Log what broke and how it was fixed.
 
@@ -71,9 +70,28 @@ The entire point of the skill files is to prevent you from pattern-matching to w
 
 ---
 
-## RUNNER (to be built)
+## RUNNER — how stages execute
 
-Long-term fix: a shell script runner that enforces the above procedurally — each stage runs in its own Claude Code session with only the skill file and input artifact as context, cannot see other stages, cannot advance without a human approval file being written. This is Phase 2. Until it exists, the mandatory procedure above is the enforcement mechanism.
+`runner.sh` is the mechanical enforcement layer. **All stage execution goes through runner.sh. No manual stage execution in the conversation.**
+
+### Normal flow (conversation-native gates)
+
+1. Claude runs: `./runner.sh <stage> <slug> --run-only`
+2. Runner executes the subprocess in isolation, writes output to `wiki/stories/<slug>/.pending/<stage>.md`, prints output to stdout.
+3. Claude reads the pending file, presents it to the editor with the QA summary highlighted.
+4. Editor approves or rejects in the conversation.
+5. If **approved**: Claude runs `./runner.sh <stage> <slug> --log-approved "<note>"` — commits pending output to the output file, writes gate log.
+6. If **rejected**: Claude runs `./runner.sh <stage> <slug> --log-rejected "<reason>"` — clears pending, writes gate log.
+
+Claude does not write output files directly. The runner writes them. This is the mechanical enforcement.
+
+### [file not found] errors
+
+These mean a required input file is missing — the previous stage was not completed and gated. Do not work around this by writing the file manually. Complete the previous stage through the runner first.
+
+### Interactive mode (terminal fallback)
+
+`./runner.sh <stage> <slug>` — original interactive behavior, for use when running from a terminal directly. Gate prompt appears in terminal.
 
 ---
 

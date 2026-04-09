@@ -253,17 +253,28 @@ Each stage hands off a structured artifact. The artifact always includes: curren
 
 ## Current State
 
-As of 2026-04-09, the following exists:
+As of 2026-04-09:
 
-- **WorkFlowy** — set up and in active use. Serves as control plane.
-- **Perplexity** — set up and in active use. Contains a backlog of saved bookmarks (potential story leads / questions).
-- **EspoCRM + Claude** — set up. Serves as CRM and relationship layer.
-- **Questions** — exist in Saul's head and informally in Perplexity. Not formalized or captured anywhere yet.
-- **Pipeline** — does not exist. Phase 1 build starts from here.
-- **Wiki / knowledge store** — does not exist yet.
-- **Question package format** — does not exist yet. First build artifact.
+**Infrastructure (built):**
+- `runner.sh` — stage execution with subprocess isolation (`cd /tmp`), system event log, and conversation-native gate support (`--run-only` / `--log-approved` / `--log-rejected`)
+- `wiki/system/pipeline-log.md` — append-only event log (timestamp, stage, slug, event, detail)
+- `CLAUDE.md` — auto-loaded on session startup; instructs reading AGENTS.md + MASTER_PLAN.md
+- All pipeline skills built and QA summaries added to every skill
 
-Everything else is state zero.
+**Skills (built, QA summaries added):**
+- All Blundell suite skills (cause-effect-map, theme-statement, six-part-guide, indexing, narrative-lines, high-interest-elements, leads)
+- four-draft
+- hypothesis-formation, pitch-gate, editorial-review, fact-check, distribution-prep
+
+**Active test run:**
+- Story: Corpus Christi water crisis (`wiki/stories/corpus-christi-water/`)
+- Status: `question-package.md` exists. No gated stage output yet — starting at Stage 0a.
+
+**Gate model:**
+- Reporter model: 0a/0b/0c run as a unit; pitch surfaces to editor at 0d; draft and clearance are the other two editorial moments.
+- Gate decisions happen in conversation via `--run-only` + `--log-approved/rejected` flags.
+
+**Not yet built:** scanner, amplification loop, taste profile, automated intake.
 
 ---
 
