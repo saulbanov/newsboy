@@ -29,6 +29,7 @@ WIKI="$SCRIPT_DIR/wiki"
 SKILLS="$WIKI/skills"
 STORY="$WIKI/stories/$SLUG"
 LOGS="$STORY/gate-logs.md"
+SYSLOG="$WIKI/system/pipeline-log.md"
 TMP_OUTPUT=$(mktemp /tmp/runner-output-XXXXXX.md)
 trap 'rm -f "$TMP_OUTPUT"' EXIT
 
@@ -190,6 +191,25 @@ build_prompt() {
   echo "$prompt"
 }
 
+# ── System event log (append-only, never injected into stage prompts) ─────
+# Format: timestamp | stage | slug | event | detail
+# Location: wiki/system/pipeline-log.md — outside wiki/stories/, structurally
+# excluded from INPUT_FILES for all stages.
+log_event() {
+  local event="$1"
+  local detail="${2:-}"
+  local ts
+  ts=$(date '+%Y-%m-%d %H:%M:%S')
+
+  if [[ ! -f "$SYSLOG" ]]; then
+    mkdir -p "$(dirname "$SYSLOG")"
+    printf '# Pipeline Log\n\n| Timestamp | Stage | Slug | Event | Detail |\n|-----------|-------|------|-------|--------|\n' > "$SYSLOG"
+  fi
+
+  printf '| %s | %s | %s | %s | %s |\n' \
+    "$ts" "$STAGE" "$SLUG" "$event" "$detail" >> "$SYSLOG"
+}
+
 # ── Log gate decision ──────────────────────────────────────────────────────
 log_gate() {
   local decision="$1"
@@ -229,13 +249,23 @@ for f in "${INPUT_FILES[@]}"; do
   fi
 done
 
+log_event "STAGE_START" "input files: ${INPUT_FILES[*]}"
+
 echo "Building prompt and running stage..."
 echo ""
 
 PROMPT=$(build_prompt)
 
 # Run Claude from /tmp so it does not pick up project CLAUDE.md — information isolation
-(cd /tmp && echo "$PROMPT" | claude --print --allowedTools "") > "$TMP_OUTPUT" 2>&1
+if (cd /tmp && echo "$PROMPT" | claude --print --allowedTools "") > "$TMP_OUTPUT" 2>&1; then
+  log_event "CLAUDE_OK" "output: $(wc -c < "$TMP_OUTPUT") bytes"
+else
+  CLAUDE_EXIT=$?
+  log_event "CLAUDE_FAIL" "exit code: $CLAUDE_EXIT"
+  echo "Error: claude subprocess failed (exit $CLAUDE_EXIT). Output:"
+  cat "$TMP_OUTPUT"
+  exit 1
+fi
 
 echo ""
 echo "════════════════════════════════════════════════════════════"
@@ -255,6 +285,7 @@ while true; do
       cp "$TMP_OUTPUT" "$OUTPUT_FILE"
       read -rp "Gate note (press enter to skip): " GATE_NOTE
       log_gate "APPROVED" "$GATE_NOTE"
+      log_event "GATE_APPROVED" "${GATE_NOTE:-no note}"
       echo ""
       echo "✓ Approved. Output written to: $(basename "$OUTPUT_FILE")"
       echo "  Next stage: run ./runner.sh <next-stage> $SLUG"
@@ -263,6 +294,7 @@ while true; do
     reject|r|no|n)
       read -rp "Rejection reason: " REJECT_NOTE
       log_gate "REJECTED" "$REJECT_NOTE"
+      log_event "GATE_REJECTED" "$REJECT_NOTE"
       echo ""
       echo "✗ Rejected. Stage not advanced. Re-run after fixing the issue."
       exit 1
@@ -272,6 +304,7 @@ while true; do
       cp "$TMP_OUTPUT" "$OUTPUT_FILE"
       read -rp "Gate note (press enter to skip): " GATE_NOTE
       log_gate "APPROVED (edited)" "$GATE_NOTE"
+      log_event "GATE_APPROVED_EDITED" "${GATE_NOTE:-no note}"
       echo ""
       echo "✓ Edited and approved. Output written to: $(basename "$OUTPUT_FILE")"
       break
