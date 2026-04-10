@@ -214,32 +214,72 @@ configure_stage() {
 }
 
 # ── Build prompt ───────────────────────────────────────────────────────────
+# New behavior: if a prompt file exists at prompts/<STAGE>.md, use it.
+# Prompt files declare their own reference injections via a "## References" section.
+# Runner parses that section and loads only the listed files — no unconditional bulk load.
+# Fallback: if no prompt file exists, use the existing SKILL.md loading (unchanged).
 build_prompt() {
   local prompt=""
+  local prompt_file="$SCRIPT_DIR/prompts/$STAGE.md"
 
-  prompt+="You are running a single stage of a journalism pipeline. You have been given:"
-  prompt+=$'\n'"1. A skill file that defines exactly what you must do and exactly what output to produce."
-  prompt+=$'\n'"2. Input from the previous stage."
-  prompt+=$'\n\n'"You must follow the skill file procedure exactly. Produce only the output format it specifies. Nothing else."
-  prompt+=$'\n\n'"---"
-  prompt+=$'\n\n'"SKILL FILE:"
-  prompt+=$'\n\n'
+  if [[ -f "$prompt_file" ]]; then
+    # ── Lean prompt path ──────────────────────────────────────────────────
+    prompt=$(cat "$prompt_file")
 
-  if [[ "$SKILL_IS_DIR" == true ]]; then
-    prompt+=$(cat "$SKILL_PATH/SKILL.md")
-    prompt+=$'\n\n'"REFERENCE FILES:"$'\n'
-    if [[ -d "$SKILL_PATH/references" ]]; then
-      for ref in "$SKILL_PATH/references/"*.md; do
-        [[ -f "$ref" ]] || continue
-        prompt+=$'\n'"=== $(basename "$ref") ==="$'\n'
-        prompt+=$(cat "$ref")
-        prompt+=$'\n'
-      done
-    fi
+    # Parse ## References section: lines starting with "- " between
+    # "## References" and the next "## " heading (or end of file)
+    local in_refs=0
+    while IFS= read -r line; do
+      if [[ "$line" =~ ^##[[:space:]]References ]]; then
+        in_refs=1
+        continue
+      fi
+      if [[ $in_refs -eq 1 && "$line" =~ ^##[[:space:]] ]]; then
+        break
+      fi
+      if [[ $in_refs -eq 1 && "$line" =~ ^-[[:space:]] ]]; then
+        local ref_path="${line#- }"
+        # Trim leading/trailing whitespace
+        ref_path="${ref_path#"${ref_path%%[![:space:]]*}"}"
+        ref_path="${ref_path%"${ref_path##*[![:space:]]}"}"
+        local full_ref="$SCRIPT_DIR/$ref_path"
+        if [[ -f "$full_ref" ]]; then
+          prompt+=$'\n\n'"=== $(basename "$full_ref") ==="$'\n'
+          prompt+=$(cat "$full_ref")
+          prompt+=$'\n'
+        else
+          echo "Warning: reference file not found: $ref_path" >&2
+        fi
+      fi
+    done <<< "$prompt"
+
   else
-    prompt+=$(cat "$SKILL_PATH")
+    # ── Fallback: existing SKILL.md loading (unchanged) ───────────────────
+    prompt+="You are running a single stage of a journalism pipeline. You have been given:"
+    prompt+=$'\n'"1. A skill file that defines exactly what you must do and exactly what output to produce."
+    prompt+=$'\n'"2. Input from the previous stage."
+    prompt+=$'\n\n'"You must follow the skill file procedure exactly. Produce only the output format it specifies. Nothing else."
+    prompt+=$'\n\n'"---"
+    prompt+=$'\n\n'"SKILL FILE:"
+    prompt+=$'\n\n'
+
+    if [[ "$SKILL_IS_DIR" == true ]]; then
+      prompt+=$(cat "$SKILL_PATH/SKILL.md")
+      prompt+=$'\n\n'"REFERENCE FILES:"$'\n'
+      if [[ -d "$SKILL_PATH/references" ]]; then
+        for ref in "$SKILL_PATH/references/"*.md; do
+          [[ -f "$ref" ]] || continue
+          prompt+=$'\n'"=== $(basename "$ref") ==="$'\n'
+          prompt+=$(cat "$ref")
+          prompt+=$'\n'
+        done
+      fi
+    else
+      prompt+=$(cat "$SKILL_PATH")
+    fi
   fi
 
+  # ── Input files (same for both paths) ────────────────────────────────────
   prompt+=$'\n\n'"---"
   prompt+=$'\n\n'"INPUT:"$'\n'
 
