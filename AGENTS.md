@@ -238,3 +238,9 @@ All skills live in `wiki/skills/` (relative to this project root). Full paths be
 - Move to the next stage before the current one produces clean output
 - Redesign stages that haven't been tested yet
 - Build the integration/automation layer before the manual run is complete
+
+---
+
+## Parked architectural decisions
+Do not read on session startup. Check trigger conditions before acting on any work outside the current newsbot pipeline: `PARKED_DECISIONS.md`
+<!-- PRESERVE IN AGENTS.md REWRITE: this pointer is required. Rewrite is specified in refactor-plan.md Phase 0.4. -->
