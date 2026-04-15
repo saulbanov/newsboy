@@ -273,7 +273,7 @@ As of 2026-04-09:
 
 **Active test run:**
 - Story: Oil/Trump trades pattern (`wiki/stories/oil-ceasefire-bet/`)
-- Status: intake, 0a, 0b, 0c complete and approved. Tier 1 machine research complete (all 5 hypotheses confirmed). Competition analysis done — Rolling Stone (March 28) is closest competitor; our story differentiated by April 8 trade + full pattern scope. At pitch gate (0d) — awaiting commission decision.
+- Status: intake, 0a, 0b, 0c, 0d complete and approved. COMMISSIONED 2026-04-15. Advancing to Stage 1a (research planning — blundell-six-part-guide).
 - Open question: order of operations between intake (story-analyst) and 0a/0b may be logically redundant — flagged for review after test run.
 - Open question: competition analysis needs to be a formal, required stage in the pipeline — not ad hoc. Currently it happened informally between Tier 1 research and the pitch. Needs: (1) a defined place in the chain (likely between 0c and 0d, or as a required component of the pitch brief), (2) a skill file specifying what rigor looks like — systematic comparison against existing coverage. Key questions it must answer: has this exact story been told? what does the closest competitor have? what do we have that they don't? what original reporting would differentiate us?
 

@@ -20,3 +20,7 @@ Note: hypotheses clear; H3 gates regulatory argument; proceed to pitch
 Decision: **APPROVED**
 Note: COMMISSIONED. Tier 1 machine checks completed in session before pitch gate ran: H1 confirmed (pattern across tariffs, Venezuela, Hegseth), H3 confirmed (CME surveillance designed to catch deviations from normal activity), H5 confirmed (CFTC docket clean, director said 'watching' only). Design gap noted: research results must be captured in a file the pitch gate subprocess can read.
 
+## 2026-04-15 — Stage 1a — Research Planning (blundell-six-part-guide)
+Decision: **PENDING REPORTER APPROVAL**
+Output: research-plan.md — weighted six-part reporting plan. Dominant sections: Reasons + Countermoves. Priority 1 target: source inside/formerly inside CFTC enforcement on whether inaction was ordered or chosen. Key scene: why Rep. Adrian Smith (R) co-sponsored the PREDICT Act.
+

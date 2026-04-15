@@ -8,7 +8,7 @@
 # Usage:
 #   ./runner.sh <stage> <story-slug>
 #
-# Stages: 0a, 0b, 0c, 0d, 1a, 1b, 2a, 3, 4, 5
+# Stages: intake 0a 0b 0c 0c5 0d 1a 1b 2a 2b-draft1 2b-draft2 2b-draft3 2b-draft4 3 4 5
 # Example:
 #   ./runner.sh 0a oil-ceasefire-bet
 
@@ -72,6 +72,7 @@ check_prerequisites() {
 }
 
 configure_stage() {
+  IS_SCRIPT_STAGE=false
   case "$STAGE" in
     intake)
       STAGE_LABEL="Intake — Story Analysis"
@@ -114,6 +115,15 @@ configure_stage() {
       INPUT_FILES=("$STORY/cause-effect-map.md" "$STORY/theme-statement.md")
       OUTPUT_FILE="$STORY/hypotheses.md"
       ;;
+    0c5)
+      STAGE_LABEL="Stage 0c5 — Machine Research"
+      IS_SCRIPT_STAGE=true
+      PREREQS=(
+        "$STORY/hypotheses.md|0c"
+      )
+      INPUT_FILES=()
+      OUTPUT_FILE="$STORY/machine-research.md"
+      ;;
     0d)
       STAGE_LABEL="Stage 0d — Pitch Gate"
       SKILL_PATH="$SKILLS/pitch-gate.md"
@@ -121,7 +131,7 @@ configure_stage() {
       PREREQS=(
         "$STORY/theme-statement.md|0b"
         "$STORY/hypotheses.md|0c"
-        "$STORY/machine-research.md|manual (run Tier 1 machine research and write findings to machine-research.md before pitching)"
+        "$STORY/machine-research.md|0c5"
       )
       INPUT_FILES=("$STORY/theme-statement.md" "$STORY/hypotheses.md" "$STORY/machine-research.md")
       OUTPUT_FILE="$STORY/pitch-gate-verdict.md"
@@ -160,6 +170,46 @@ configure_stage() {
       INPUT_FILES=("$STORY/indexed-notes.md" "$STORY/theme-statement.md")
       OUTPUT_FILE="$STORY/structure-plan.md"
       ;;
+    2b-draft1)
+      STAGE_LABEL="Stage 2b-draft1 — The Blurt"
+      SKILL_PATH="$SKILLS/four-draft"
+      SKILL_IS_DIR=true
+      PREREQS=(
+        "$STORY/structure-plan.md|2a"
+      )
+      INPUT_FILES=("$STORY/structure-plan.md")
+      OUTPUT_FILE="$STORY/drafts/draft1.md"
+      ;;
+    2b-draft2)
+      STAGE_LABEL="Stage 2b-draft2 — Structure Pass"
+      SKILL_PATH="$SKILLS/four-draft"
+      SKILL_IS_DIR=true
+      PREREQS=(
+        "$STORY/drafts/draft1.md|2b-draft1"
+      )
+      INPUT_FILES=("$STORY/drafts/draft1.md")
+      OUTPUT_FILE="$STORY/drafts/draft2.md"
+      ;;
+    2b-draft3)
+      STAGE_LABEL="Stage 2b-draft3 — Noise Removal"
+      SKILL_PATH="$SKILLS/four-draft"
+      SKILL_IS_DIR=true
+      PREREQS=(
+        "$STORY/drafts/draft2.md|2b-draft2"
+      )
+      INPUT_FILES=("$STORY/drafts/draft2.md")
+      OUTPUT_FILE="$STORY/drafts/draft3.md"
+      ;;
+    2b-draft4)
+      STAGE_LABEL="Stage 2b-draft4 — Mot Juste"
+      SKILL_PATH="$SKILLS/four-draft"
+      SKILL_IS_DIR=true
+      PREREQS=(
+        "$STORY/drafts/draft3.md|2b-draft3"
+      )
+      INPUT_FILES=("$STORY/drafts/draft3.md")
+      OUTPUT_FILE="$STORY/drafts/draft4.md"
+      ;;
     3)
       STAGE_LABEL="Stage 3 — Editorial Review"
       SKILL_PATH="$SKILLS/editorial-review.md"
@@ -169,7 +219,7 @@ configure_stage() {
         "$STORY/structure-plan.md|2a"
       )
       if [[ -z "$DRAFT" ]]; then
-        echo "Error: no draft found in $STORY/drafts/ — Stage 2b–2e (drafting) must produce at least one draft first."
+        echo "Error: no draft found in $STORY/drafts/ — run 2b-draft1 through 2b-draft4 first."
         exit 1
       fi
       INPUT_FILES=("$DRAFT")
@@ -207,7 +257,8 @@ configure_stage() {
       OUTPUT_FILE="$STORY/distribution-package.md"
       ;;
     *)
-      echo "Error: unknown stage '$STAGE'. Valid stages: intake 0a 0b 0c 0d 1a 1b 2a 3 4 5"
+      echo "Error: unknown stage '$STAGE'."
+      echo "Valid stages: intake 0a 0b 0c 0c5 0d 1a 1b 2a 2b-draft1 2b-draft2 2b-draft3 2b-draft4 3 4 5"
       exit 1
       ;;
   esac
@@ -377,7 +428,31 @@ echo ""
 # Verify prerequisites are satisfied before running
 check_prerequisites "${PREREQS[@]}"
 
-log_event "STAGE_START" "input files: ${INPUT_FILES[*]}"
+log_event "STAGE_START" "input files: ${INPUT_FILES[*]:-none}"
+
+# ── Create drafts/ directory for draft stages ─────────────────────────────
+if [[ "$STAGE" == 2b-* ]]; then
+  mkdir -p "$STORY/drafts"
+fi
+
+# ── 0c5: script stage — runs bash script, no Claude subprocess ────────────
+if [[ "$IS_SCRIPT_STAGE" == true ]]; then
+  echo "Running script stage..."
+  echo ""
+  if "$SCRIPT_DIR/scripts/0c5-machine-research.sh" "$SLUG"; then
+    log_event "SCRIPT_OK" "output: $OUTPUT_FILE"
+    echo ""
+    echo "✓ Machine research complete. Output: $(basename "$OUTPUT_FILE")"
+    echo "  Review $OUTPUT_FILE, then run: ./runner.sh 0d $SLUG"
+  else
+    SCRIPT_EXIT=$?
+    log_event "SCRIPT_FAIL" "exit code: $SCRIPT_EXIT"
+    echo ""
+    echo "Error: script stage failed (exit $SCRIPT_EXIT). See output above."
+    exit 1
+  fi
+  exit 0
+fi
 
 echo "Building prompt and running stage..."
 echo ""
