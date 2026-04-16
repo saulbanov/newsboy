@@ -10,7 +10,7 @@
 #
 # Stages: intake 0a 0b 0c 0c5 0d 1a 1a-sub 1b 1c 2a 2b-draft1 2b-draft2 2b-draft3 2b-draft4 3 4 5 aug-gap-audit aug-engagement-audit
 # Example:
-#   ./runner.sh 0a oil-ceasefire-bet
+#   ./runner.sh 0a my-story-slug
 
 set -euo pipefail
 

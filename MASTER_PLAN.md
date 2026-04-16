@@ -271,11 +271,11 @@ As of 2026-04-09:
 - Mode 1: Human writes `question-package.md` directly → start at Stage 0a
 - Mode 2: Human pastes article text → `source-article.md` → `intake` stage → pick angle → `question-package.md` → Stage 0a
 
-**Active test run:**
-- Story: Oil/Trump trades pattern (`wiki/stories/oil-ceasefire-bet/`)
-- Status: intake, 0a, 0b, 0c, 0d complete and approved. COMMISSIONED 2026-04-15. Advancing to Stage 1a (research planning — blundell-six-part-guide).
-- Open question: order of operations between intake (story-analyst) and 0a/0b may be logically redundant — flagged for review after test run.
-- Open question: competition analysis needs to be a formal, required stage in the pipeline — not ad hoc. Currently it happened informally between Tier 1 research and the pitch. Needs: (1) a defined place in the chain (likely between 0c and 0d, or as a required component of the pitch brief), (2) a skill file specifying what rigor looks like — systematic comparison against existing coverage. Key questions it must answer: has this exact story been told? what does the closest competitor have? what do we have that they don't? what original reporting would differentiate us?
+**Status:** Phase 1 build complete. All 24 prompts written and validated. Runner engineering done. Ready for trial run on a fresh story.
+
+**Open questions from prior test run:**
+- Order of operations between intake (story-analyst) and 0a/0b may be logically redundant — flagged for review after trial run.
+- Competition analysis needs to be a formal, required stage in the pipeline — not ad hoc. Needs: (1) a defined place in the chain (likely between 0c and 0d, or as a required component of the pitch brief), (2) a skill file specifying what rigor looks like — systematic comparison against existing coverage.
 
 **Gate model:**
 - Reporter model: 0a/0b/0c run as a unit; pitch surfaces to editor at 0d; draft and clearance are the other two editorial moments.

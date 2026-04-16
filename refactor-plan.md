@@ -13,7 +13,7 @@ Converts newsbot-master-plan from a sequential, skill-heavy pipeline into a lean
 
 ## Current state
 
-**What exists and works**: `runner.sh` with subprocess isolation, prerequisite checking, pending/approved gate flow, gate logging. Blundell suite (9 skills, built). Four-draft skill (built). Five flat pipeline skills (hypothesis-formation, pitch-gate, editorial-review, fact-check, distribution-prep). One live story (oil-ceasefire-bet) commissioned and at 1a.
+**What exists and works**: `runner.sh` with subprocess isolation, prerequisite checking, pending/approved gate flow, gate logging. Blundell suite (9 skills, built). Four-draft skill (built). Five flat pipeline skills (hypothesis-formation, pitch-gate, editorial-review, fact-check, distribution-prep). All 24 lean prompts written and validated. Phase 1 build complete — ready for trial run on a fresh story.
 
 **What's broken**:
 - `build_prompt()` loads SKILL.md + all references unconditionally — context bloat
