@@ -1,4 +1,4 @@
-# Newsbot Master Plan — System File
+# Newsboy Master Plan — System File
 *Created: 2026-04-09 | Last updated: 2026-04-09*
 
 ---
@@ -124,5 +124,5 @@ Nothing yet.
 ## Meta notes
 - User's working style: instinct-first, doesn't always know the answer but knows the wrong question fast
 - Move at pace — user wants to run something today; don't over-interview
-- Source docs live at: `/Users/saulelbein/Documents/Claude Code/Newsbot/source documents/`
+- Source docs live at: `/Users/saulelbein/Documents/Claude Code/Newsboy/source documents/`
 - Docs 04–06 not yet read: `04_Iterative_Roadmap.md`, `05_Learning_Layer.md`, `06_Implementation_Spec.md`

@@ -16,7 +16,7 @@ The reporting OS receives inputs from multiple surfaces that look different from
 ### There are at least four input surfaces
 
 **1. Human CLI**
-A person typing into a terminal or Claude Code. Freeform natural language. This exists now. It's what runs newsbot today.
+A person typing into a terminal or Claude Code. Freeform natural language. This exists now. It's what runs newsboy today.
 
 **2. Human interface (future)**
 Some kind of cursor bar, dashboard, or web interface. Also freeform natural language, probably. This does not exist yet. What it looks like is unknown — see open questions.

@@ -1,5 +1,5 @@
 # Parked Decisions — Reporting OS
-*Generated: 2026-04-10 | Status: Do not act on this document during the newsbot refactor*
+*Generated: 2026-04-10 | Status: Do not act on this document during the newsboy refactor*
 
 ---
 
@@ -7,7 +7,7 @@
 
 This document preserves three bodies of architectural thinking developed in April 2026 that are not yet relevant to build. Each one has a specific trigger condition. Do not open the referenced documents or act on their contents until the trigger condition is met.
 
-If you are currently working on the newsbot refactor, close this document and return to `REFACTOR_ADDENDUM.md`.
+If you are currently working on the newsboy refactor, close this document and return to `REFACTOR_ADDENDUM.md`.
 
 ---
 
@@ -20,10 +20,10 @@ A north star map of the full reporting OS — five machines (Scanner, Newsroom P
 `architecture-north-star.md` at the project root.
 
 **Trigger:**
-Read this before designing any component that exists outside the current newsbot pipeline — i.e. before beginning work on Scanner, Amplification Loop, investigation mode, or augmentation mode.
+Read this before designing any component that exists outside the current newsboy pipeline — i.e. before beginning work on Scanner, Amplification Loop, investigation mode, or augmentation mode.
 
 **Do not use it to:**
-Redesign the current newsbot pipeline. The refactor is governed by `REFACTOR_ADDENDUM.md`.
+Redesign the current newsboy pipeline. The refactor is governed by `REFACTOR_ADDENDUM.md`.
 
 ---
 
@@ -45,7 +45,7 @@ Read both before building any of the following:
 Do not build the router until story mode is working end-to-end and at least one other mode exists.
 
 **Do not use it to:**
-Add routing logic to the current newsbot refactor. The current pipeline uses direct stage invocation via runner.sh. That is correct for now.
+Add routing logic to the current newsboy refactor. The current pipeline uses direct stage invocation via runner.sh. That is correct for now.
 
 ---
 
@@ -71,7 +71,7 @@ An honest accounting of nine failure modes specific to this system — hallucina
 | Credential exposure | Tool surface expands beyond current API keys |
 
 **Do not use it to:**
-Add risk mitigations to the current newsbot refactor. The one exception: speculation markers on early-stage outputs and primary source links in the citation sheet are low-cost and worth incorporating. See `REFACTOR_ADDENDUM.md`.
+Add risk mitigations to the current newsboy refactor. The one exception: speculation markers on early-stage outputs and primary source links in the citation sheet are low-cost and worth incorporating. See `REFACTOR_ADDENDUM.md`.
 
 ---
 

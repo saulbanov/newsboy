@@ -8,7 +8,7 @@
 Before doing anything else, orient yourself:
 
 1. Look at the directory where this file lives.
-2. Determine: is this file at a project root that contains multiple machine directories (Scanner, newsbot, etc.)? Or is it sitting inside a single project directory (e.g., newsbot-master-plan)?
+2. Determine: is this file at a project root that contains multiple machine directories (Scanner, newsboy, etc.)? Or is it sitting inside a single project directory (e.g., newsbot-master-plan)?
 3. Check whether a root-level `AGENTS.md` already exists one level up.
 4. State in two sentences: where this file currently lives, and what the right home for it is given what you find.
 
@@ -58,7 +58,7 @@ Tracks what lands after publication. Who amplified it, what questions it generat
 **Machine 4 — The Private Research Layer**
 The reporter's own gathered material: notes, interviews, documents, datasets, FOIA requests. Not public. Not searchable from outside. Fed in by the reporter; read by the Synthesis Layer and available to augmentation mode.
 
-*Status: Not yet built. Directory stubs should exist in newsbot. Architecture must accommodate from the start.*
+*Status: Not yet built. Directory stubs should exist in newsboy. Architecture must accommodate from the start.*
 
 **Machine 5 — The Synthesis Layer**
 The nervous system. Runs continuously across all other machines. Reads everything against everything else: public vs. public, private vs. public, private vs. private, old vs. new. Surfaces contradictions, confirmations, patterns, and gaps. Not a pipeline stage — an always-on background operation.

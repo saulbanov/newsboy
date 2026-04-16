@@ -1,4 +1,4 @@
-# Newsbot — Master Plan
+# Newsboy — Master Plan
 *Unified architecture. Modular by design. Version 1.0 — 2026-04-09*
 
 ---
@@ -158,7 +158,7 @@ Add editorial identity to relevant skills. Bake in voice, style criteria, stakeh
 
 Build the intake layer: ingestion, discourse analysis, gap detection, relevance scoring, question package formulation.
 
-**News Sifter automation (near-term):** Automate the daily News Sifter → Newsbot handoff via a local cron job that fetches the daily report and pipes it into a Claude Code session. Claude runs blundell-story-analyst, writes gap analysis and question packages to the wiki. No manual URL-dropping. WorkFlowy project: "Automate pushing NewsSifter to Newsbot."
+**News Sifter automation (near-term):** Automate the daily News Sifter → Newsboy handoff via a local cron job that fetches the daily report and pipes it into a Claude Code session. Claude runs blundell-story-analyst, writes gap analysis and question packages to the wiki. No manual URL-dropping. WorkFlowy project: "Automate pushing NewsSifter to Newsboy."
 
 **Done when:** Scanner is generating question packages that journalists find useful. At least one story has moved from scanner output through the full pipeline to publication.
 

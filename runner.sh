@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# runner.sh — Newsbot pipeline stage runner
+# runner.sh — Newsboy pipeline stage runner
 #
 # Enforces information isolation mechanically: each stage gets a fresh
 # claude --print invocation with ONLY the skill file content and input

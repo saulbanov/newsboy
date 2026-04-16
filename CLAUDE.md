@@ -1,4 +1,4 @@
-# Newsbot Pipeline — Project Instructions
+# Newsboy Pipeline — Project Instructions
 
 ## Read on every session startup
 

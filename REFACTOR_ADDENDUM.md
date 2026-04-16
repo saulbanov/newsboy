@@ -1,4 +1,4 @@
-# Refactor Addendum — Newsbot Pipeline
+# Refactor Addendum — Newsboy Pipeline
 *Generated: 2026-04-10 | Amends: MASTER_PLAN.md*
 *Scope: Current refactor only. Do not act on anything in PARKED_DECISIONS.md.*
 *Build implementation spec (detailed phases, per-stage prompt specs, ProPublica integration): `refactor-plan.md`*
@@ -7,7 +7,7 @@
 
 ## What This Document Is
 
-This document contains architectural changes to the newsbot pipeline developed in April 2026. It amends MASTER_PLAN.md — it does not replace it. Read MASTER_PLAN.md first as always, then read this document to understand what is changing and why.
+This document contains architectural changes to the newsboy pipeline developed in April 2026. It amends MASTER_PLAN.md — it does not replace it. Read MASTER_PLAN.md first as always, then read this document to understand what is changing and why.
 
 Everything in this document is actionable now. Nothing here is speculative or future-state.
 
@@ -74,7 +74,7 @@ Split into three files:
 
 **AGENTS.md template after refactor:**
 ```markdown
-# Newsbot — Session Startup
+# Newsboy — Session Startup
 
 ## What this is
 AI-assisted newsroom pipeline. Question in, published story out.

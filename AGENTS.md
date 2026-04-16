@@ -1,4 +1,4 @@
-# Newsbot — Session Startup
+# Newsboy — Session Startup
 
 ## What this is
 AI-assisted newsroom pipeline. Question in, published story out.
@@ -70,4 +70,4 @@ Do not interrupt for intermediate steps. Do the work; bring findings.
 - Architectural decisions: `REFACTOR_ADDENDUM.md`
 
 ## Parked architectural decisions
-Do not read on session startup. Check trigger conditions before acting on any work outside the current newsbot pipeline: `PARKED_DECISIONS.md`
+Do not read on session startup. Check trigger conditions before acting on any work outside the current newsboy pipeline: `PARKED_DECISIONS.md`
