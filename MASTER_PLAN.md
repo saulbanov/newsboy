@@ -200,7 +200,7 @@ Skills live at: `/Users/saulelbein/Documents/Claude Code/blundell-skills/`
 
 ---
 
-## Skills Still to Build (4 Remaining)
+## Adversarial Role Design (All Built)
 
 | Stage | Role it models | Information access | Adversarial posture |
 |-------|---------------|-------------------|---------------------|
