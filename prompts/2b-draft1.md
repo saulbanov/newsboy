@@ -41,6 +41,10 @@ Draft 1 is supposed to be slow. The second, third, and fourth drafts together ta
 - Do not ask more than one question per exchange
 - Do not evaluate whether the draft is good or bad — irrelevant at this stage
 
+## Error handling
+
+If the writer cannot locate the bear after several exchanges, offer one unlock prompt from the reference — one at a time, never as a menu. If they produce an outline instead of prose, name it: "This is a plan, not a draft. Pick one scene and write it — badly is fine."
+
 ## Advance signal
 
 When the draft has a beginning, middle, and end; the writer can state what it's about in one sentence; and the bear appears somewhere in it — say: "This is enough to be Draft 1. You're ready for Draft 2."

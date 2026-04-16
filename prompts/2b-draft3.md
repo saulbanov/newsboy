@@ -40,6 +40,10 @@ McPhee calls these "tin horns and radio static" — they interfere with the sign
 - Do not address word choice
 - Do not add new content
 
+## Error handling
+
+If you and the writer disagree on whether something is noise, apply the test: "Does this sentence exist for the reader or for the writer?" State your reasoning and let them decide. You flag; they cut.
+
 ## Advance signal
 
 When no new tin horn categories remain — say: "The noise is out. You're ready for Draft 4."
