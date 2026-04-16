@@ -7,24 +7,26 @@
 
 | Stage | Prompt file | Skill fallback (if no prompt file) |
 |-------|-------------|-----------------------------------|
-| intake | prompts/intake.md | wiki/skills/blundell-story-analyst |
-| 0a | prompts/0a-cause-effect-map.md | wiki/skills/blundell-cause-effect-map |
-| 0b | prompts/0b-theme-statement.md | wiki/skills/blundell-theme-statement |
-| 0c | prompts/0c-hypothesis-formation.md | wiki/skills/hypothesis-formation.md |
+| intake | — | wiki/skills/blundell-story-analyst |
+| 0a | prompts/0a.md | wiki/skills/blundell-cause-effect-map |
+| 0b | prompts/0b.md | wiki/skills/blundell-theme-statement |
+| 0c | prompts/0c.md | wiki/skills/hypothesis-formation.md |
 | 0c5 | scripts/0c5-machine-research.sh | (script — no LM) |
-| 0c7 | scripts/0c7-trending-context.sh | (script — no LM, placeholder) |
-| 0d | prompts/0d-pitch-gate.md | wiki/skills/pitch-gate.md |
-| 1a | prompts/1a-research-planning.md | wiki/skills/blundell-six-part-guide |
-| 1b | prompts/1b-note-organization.md | wiki/skills/blundell-indexing |
-| 1c | prompts/1c-wiki-update.md | (no fallback — new stage) |
-| 2a | prompts/2a-structure.md | wiki/skills/blundell-narrative-lines |
-| 2b-draft1 | prompts/2b-draft1.md | (no fallback — new stage) |
-| 2b-draft2 | prompts/2b-draft2.md | (no fallback — new stage) |
-| 2b-draft3 | prompts/2b-draft3.md | (no fallback — new stage) |
-| 2b-draft4 | prompts/2b-draft4.md | (no fallback — new stage) |
-| 3 | prompts/3-editorial-review.md | wiki/skills/editorial-review.md |
-| 4 | prompts/4-fact-check.md | wiki/skills/fact-check.md |
-| 5 | prompts/5-distribution-prep.md | wiki/skills/distribution-prep.md |
+| 0d | prompts/0d.md | wiki/skills/pitch-gate.md |
+| 1a | prompts/1a.md | wiki/skills/blundell-six-part-guide |
+| 1a-sub | prompts/1a-sub-*.md | (subagent spawning — no single skill) |
+| 1b | prompts/1b.md | wiki/skills/blundell-indexing |
+| 1c | prompts/1c.md | (no fallback — write-capable stage) |
+| 2a | prompts/2a.md | wiki/skills/blundell-narrative-lines |
+| 2b-draft1 | prompts/2b-draft1.md | — |
+| 2b-draft2 | prompts/2b-draft2.md | — |
+| 2b-draft3 | prompts/2b-draft3.md | — |
+| 2b-draft4 | prompts/2b-draft4.md | — |
+| 3 | prompts/3.md | wiki/skills/editorial-review.md |
+| 4 | prompts/4.md | wiki/skills/fact-check.md |
+| 5 | prompts/5.md | wiki/skills/distribution-prep.md |
+| aug-gap-audit | prompts/aug-gap-audit.md | — |
+| aug-engagement-audit | prompts/aug-engagement-audit.md | — |
 
 ---
 

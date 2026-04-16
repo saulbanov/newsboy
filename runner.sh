@@ -8,7 +8,7 @@
 # Usage:
 #   ./runner.sh <stage> <story-slug>
 #
-# Stages: intake 0a 0b 0c 0c5 0d 1a 1b 2a 2b-draft1 2b-draft2 2b-draft3 2b-draft4 3 4 5
+# Stages: intake 0a 0b 0c 0c5 0d 1a 1a-sub 1b 1c 2a 2b-draft1 2b-draft2 2b-draft3 2b-draft4 3 4 5 aug-gap-audit aug-engagement-audit
 # Example:
 #   ./runner.sh 0a oil-ceasefire-bet
 
@@ -20,7 +20,7 @@ MODE="${3:-interactive}"   # interactive (default) | --run-only | --log-approved
 
 if [[ -z "$STAGE" || -z "$SLUG" ]]; then
   echo "Usage: ./runner.sh <stage> <story-slug> [--run-only | --log-approved <note> | --log-rejected <reason>]"
-  echo "Stages: intake 0a 0b 0c 0d 1a 1b 2a 3 4 5"
+  echo "Stages: intake 0a 0b 0c 0c5 0d 1a 1a-sub 1b 1c 2a 2b-draft1..4 3 4 5 aug-gap-audit aug-engagement-audit"
   exit 1
 fi
 
@@ -73,6 +73,8 @@ check_prerequisites() {
 
 configure_stage() {
   IS_SCRIPT_STAGE=false
+  IS_SUBAGENT_STAGE=false
+  IS_WRITE_STAGE=false
   case "$STAGE" in
     intake)
       STAGE_LABEL="Intake — Story Analysis"
@@ -148,6 +150,15 @@ configure_stage() {
       INPUT_FILES=("$STORY/theme-statement.md" "$STORY/hypotheses.md")
       OUTPUT_FILE="$STORY/research-plan.md"
       ;;
+    1a-sub)
+      STAGE_LABEL="Stage 1a-sub — Research Subagents"
+      IS_SUBAGENT_STAGE=true
+      PREREQS=(
+        "$STORY/research-plan.md|1a"
+      )
+      INPUT_FILES=("$STORY/research-plan.md")
+      OUTPUT_FILE="$STORY/research-plan-developed.md"
+      ;;
     1b)
       STAGE_LABEL="Stage 1b — Note Organization"
       SKILL_PATH="$SKILLS/blundell-indexing"
@@ -158,6 +169,17 @@ configure_stage() {
       )
       INPUT_FILES=("$STORY/research-artifact.md")
       OUTPUT_FILE="$STORY/indexed-notes.md"
+      ;;
+    1c)
+      STAGE_LABEL="Stage 1c — Wiki Update"
+      SKILL_IS_DIR=false
+      PREREQS=(
+        "$STORY/indexed-notes.md|1b"
+        "$STORY/research-plan.md|1a"
+      )
+      INPUT_FILES=("$STORY/indexed-notes.md" "$STORY/research-plan.md")
+      OUTPUT_FILE="$STORY/wiki-update-complete.md"
+      IS_WRITE_STAGE=true
       ;;
     2a)
       STAGE_LABEL="Stage 2a — Structure"
@@ -256,9 +278,31 @@ configure_stage() {
       INPUT_FILES=("$DRAFT")
       OUTPUT_FILE="$STORY/distribution-package.md"
       ;;
+    aug-gap-audit)
+      STAGE_LABEL="Augmentation — Gap Audit"
+      SKILL_IS_DIR=false
+      PREREQS=(
+        "$STORY/research-plan.md|1a"
+      )
+      # Optional inputs: indexed-notes and current draft (if they exist)
+      INPUT_FILES=("$STORY/research-plan.md")
+      [[ -f "$STORY/indexed-notes.md" ]] && INPUT_FILES+=("$STORY/indexed-notes.md")
+      DRAFT=$(ls "$STORY/drafts/"*.md 2>/dev/null | sort -V | tail -1 || true)
+      [[ -n "$DRAFT" ]] && INPUT_FILES+=("$DRAFT")
+      OUTPUT_FILE="$STORY/gap-audit.md"
+      ;;
+    aug-engagement-audit)
+      STAGE_LABEL="Augmentation — Engagement Audit"
+      SKILL_IS_DIR=false
+      PREREQS=(
+        "$STORY/engagement-memo.md|1a-sub (community subagent)"
+      )
+      INPUT_FILES=("$STORY/engagement-memo.md")
+      OUTPUT_FILE="$STORY/engagement-audit.md"
+      ;;
     *)
       echo "Error: unknown stage '$STAGE'."
-      echo "Valid stages: intake 0a 0b 0c 0c5 0d 1a 1b 2a 2b-draft1 2b-draft2 2b-draft3 2b-draft4 3 4 5"
+      echo "Valid stages: intake 0a 0b 0c 0c5 0d 1a 1a-sub 1b 1c 2a 2b-draft1..4 3 4 5 aug-gap-audit aug-engagement-audit"
       exit 1
       ;;
   esac
@@ -386,6 +430,154 @@ log_gate() {
   } >> "$LOGS"
 }
 
+# ── 1a Subagent spawning ──────────────────────────────────────────────────
+# Spawns parallel claude --print processes for each applicable subagent.
+# Always: tier1, tier2, tier3, tier4, coverage
+# Conditional: community (if community gap flag = Yes), engagement (after community)
+run_1a_subagents() {
+  local research_plan="$1"
+  local output_dir="$STORY/subagent-output"
+  mkdir -p "$output_dir"
+
+  # Determine which subagents to spawn
+  local -a subagents=("1a-sub-tier1" "1a-sub-tier2" "1a-sub-tier3" "1a-sub-tier4" "1a-sub-coverage")
+
+  # Check community gap flag
+  local community_flag="No"
+  if grep -qi "community gap flag" "$research_plan" && grep -A2 -i "community gap flag" "$research_plan" | grep -qi "yes"; then
+    community_flag="Yes"
+    subagents+=("1a-sub-community")
+  fi
+
+  echo "Spawning ${#subagents[@]} subagents in parallel..."
+  echo "  Always: tier1, tier2, tier3, tier4, coverage"
+  [[ "$community_flag" == "Yes" ]] && echo "  Conditional: community (gap flag = Yes)"
+  echo ""
+
+  # Spawn all subagents in parallel
+  local -a pids=()
+  for sub in "${subagents[@]}"; do
+    local sub_prompt_file="$SCRIPT_DIR/prompts/$sub.md"
+    if [[ ! -f "$sub_prompt_file" ]]; then
+      echo "Warning: subagent prompt not found: $sub_prompt_file" >&2
+      continue
+    fi
+
+    local sub_prompt
+    sub_prompt=$(cat "$sub_prompt_file")
+
+    # Parse references from subagent prompt (same logic as build_prompt)
+    local in_refs=0
+    while IFS= read -r line; do
+      if [[ "$line" =~ ^##[[:space:]]References ]]; then
+        in_refs=1
+        continue
+      fi
+      if [[ $in_refs -eq 1 && "$line" =~ ^##[[:space:]] ]]; then
+        break
+      fi
+      if [[ $in_refs -eq 1 && "$line" =~ ^-[[:space:]] ]]; then
+        local ref_path="${line#- }"
+        ref_path="${ref_path#"${ref_path%%[![:space:]]*}"}"
+        ref_path="${ref_path%"${ref_path##*[![:space:]]}"}"
+        local full_ref="$SCRIPT_DIR/$ref_path"
+        if [[ -f "$full_ref" ]]; then
+          sub_prompt+=$'\n\n'"=== $(basename "$full_ref") ==="$'\n'
+          sub_prompt+=$(cat "$full_ref")
+          sub_prompt+=$'\n'
+        fi
+      fi
+    done <<< "$sub_prompt"
+
+    # Inject research plan as input
+    sub_prompt+=$'\n\n'"---"$'\n\n'"INPUT — Research Plan:"$'\n'
+    sub_prompt+=$(cat "$research_plan")
+
+    local sub_output="$output_dir/$sub.md"
+    (cd /tmp && echo "$sub_prompt" | claude --print --allowedTools "") > "$sub_output" 2>&1 &
+    pids+=($!)
+    echo "  Started: $sub (PID $!)"
+  done
+
+  # Wait for all parallel subagents
+  local failed=0
+  for pid in "${pids[@]}"; do
+    if ! wait "$pid"; then
+      echo "  Warning: subagent PID $pid failed" >&2
+      ((failed++))
+    fi
+  done
+
+  echo ""
+  echo "All subagents complete. $failed failed."
+
+  # If community flag was Yes and community output exists, spawn engagement memo
+  if [[ "$community_flag" == "Yes" && -f "$output_dir/1a-sub-community.md" ]]; then
+    echo "Spawning engagement memo subagent (depends on community output)..."
+    local eng_prompt_file="$SCRIPT_DIR/prompts/1a-sub-engagement.md"
+    if [[ -f "$eng_prompt_file" ]]; then
+      local eng_prompt
+      eng_prompt=$(cat "$eng_prompt_file")
+
+      # Parse engagement references
+      local in_refs=0
+      while IFS= read -r line; do
+        if [[ "$line" =~ ^##[[:space:]]References ]]; then
+          in_refs=1
+          continue
+        fi
+        if [[ $in_refs -eq 1 && "$line" =~ ^##[[:space:]] ]]; then
+          break
+        fi
+        if [[ $in_refs -eq 1 && "$line" =~ ^-[[:space:]] ]]; then
+          local ref_path="${line#- }"
+          ref_path="${ref_path#"${ref_path%%[![:space:]]*}"}"
+          ref_path="${ref_path%"${ref_path##*[![:space:]]}"}"
+          local full_ref="$SCRIPT_DIR/$ref_path"
+          if [[ -f "$full_ref" ]]; then
+            eng_prompt+=$'\n\n'"=== $(basename "$full_ref") ==="$'\n'
+            eng_prompt+=$(cat "$full_ref")
+            eng_prompt+=$'\n'
+          fi
+        fi
+      done <<< "$eng_prompt"
+
+      eng_prompt+=$'\n\n'"---"$'\n\n'"INPUT — Community Discovery:"$'\n'
+      eng_prompt+=$(cat "$output_dir/1a-sub-community.md")
+      eng_prompt+=$'\n\n'"INPUT — Research Plan:"$'\n'
+      eng_prompt+=$(cat "$research_plan")
+
+      (cd /tmp && echo "$eng_prompt" | claude --print --allowedTools "") > "$output_dir/1a-sub-engagement.md" 2>&1
+      echo "  Engagement memo complete."
+    fi
+  fi
+
+  # Synthesize: combine all subagent outputs into one developed plan
+  {
+    echo "# Research Plan (Developed) — $SLUG"
+    echo ""
+    echo "## Original Research Plan"
+    echo ""
+    cat "$research_plan"
+    echo ""
+    echo "---"
+    echo ""
+    echo "## Subagent Development"
+    echo ""
+    for sub_out in "$output_dir"/1a-sub-*.md; do
+      [[ -f "$sub_out" ]] || continue
+      local sub_name
+      sub_name=$(basename "$sub_out" .md)
+      echo "### ${sub_name}"
+      echo ""
+      cat "$sub_out"
+      echo ""
+      echo "---"
+      echo ""
+    done
+  } > "$TMP_OUTPUT"
+}
+
 # ── Main ───────────────────────────────────────────────────────────────────
 configure_stage
 
@@ -451,6 +643,74 @@ if [[ "$IS_SCRIPT_STAGE" == true ]]; then
     echo "Error: script stage failed (exit $SCRIPT_EXIT). See output above."
     exit 1
   fi
+  exit 0
+fi
+
+# ── 1a-sub: subagent stage — spawns parallel subagents, no single Claude call ──
+if [[ "$IS_SUBAGENT_STAGE" == true ]]; then
+  echo "Running 1a subagent development..."
+  echo ""
+  run_1a_subagents "$STORY/research-plan.md"
+  log_event "SUBAGENTS_OK" "output: $OUTPUT_FILE"
+
+  echo ""
+  echo "════════════════════════════════════════════════════════════"
+  echo "  OUTPUT — $STAGE_LABEL"
+  echo "════════════════════════════════════════════════════════════"
+  echo ""
+  cat "$TMP_OUTPUT"
+  echo ""
+
+  # Same gate flow as normal stages — falls through to interactive/run-only below
+  if [[ "$MODE" == "--run-only" ]]; then
+    mkdir -p "$PENDING_DIR"
+    cp "$TMP_OUTPUT" "$PENDING_FILE"
+    echo "Output staged to: $PENDING_FILE"
+    echo "Gate decision needed. Run:"
+    echo "  ./runner.sh $STAGE $SLUG --log-approved \"<note>\""
+    echo "  ./runner.sh $STAGE $SLUG --log-rejected \"<reason>\""
+    exit 0
+  fi
+
+  # Interactive gate
+  while true; do
+    read -rp "Gate decision — approve / reject / edit? " DECISION
+    case "$DECISION" in
+      approve|a|yes|y)
+        cp "$TMP_OUTPUT" "$OUTPUT_FILE"
+        # Also copy individual subagent outputs to story dir for downstream use
+        [[ -d "$STORY/subagent-output" ]] && cp "$STORY/subagent-output/1a-sub-engagement.md" "$STORY/engagement-memo.md" 2>/dev/null || true
+        [[ -d "$STORY/subagent-output" ]] && cp "$STORY/subagent-output/1a-sub-community.md" "$STORY/community-discovery.md" 2>/dev/null || true
+        read -rp "Gate note (press enter to skip): " GATE_NOTE
+        log_gate "APPROVED" "$GATE_NOTE"
+        log_event "GATE_APPROVED" "${GATE_NOTE:-no note}"
+        echo ""
+        echo "✓ Approved. Output written to: $(basename "$OUTPUT_FILE")"
+        break
+        ;;
+      reject|r|no|n)
+        read -rp "Rejection reason: " REJECT_NOTE
+        log_gate "REJECTED" "$REJECT_NOTE"
+        log_event "GATE_REJECTED" "$REJECT_NOTE"
+        echo ""
+        echo "✗ Rejected. Stage not advanced."
+        exit 1
+        ;;
+      edit|e)
+        ${EDITOR:-vi} "$TMP_OUTPUT"
+        cp "$TMP_OUTPUT" "$OUTPUT_FILE"
+        read -rp "Gate note (press enter to skip): " GATE_NOTE
+        log_gate "APPROVED (edited)" "$GATE_NOTE"
+        log_event "GATE_APPROVED_EDITED" "${GATE_NOTE:-no note}"
+        echo ""
+        echo "✓ Edited and approved."
+        break
+        ;;
+      *)
+        echo "Type: approve, reject, or edit"
+        ;;
+    esac
+  done
   exit 0
 fi
 
